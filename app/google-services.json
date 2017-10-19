@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1020711550780",
+    "firebase_url": "https://product-rating-app.firebaseio.com",
+    "project_id": "product-rating-app",
+    "storage_bucket": "product-rating-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020711550780:android:d93b74dab708a00c",
+        "android_client_info": {
+          "package_name": "com.example.abeeral_olayan.productratingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1020711550780-16dcjbnnce6bbpd2m2vubhmv75k8mtht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.abeeral_olayan.productratingapp",
+            "certificate_hash": "d63020da5f1ae8ed2d3fc5f7d84550ab2f4fb763"
+          }
+        },
+        {
+          "client_id": "1020711550780-c5tvjf8fv49b27tj86d23oa6frsmen8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjoV3AV2YCbXmyYgWjIygsCV63ekkaAl0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1020711550780-c5tvjf8fv49b27tj86d23oa6frsmen8e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
