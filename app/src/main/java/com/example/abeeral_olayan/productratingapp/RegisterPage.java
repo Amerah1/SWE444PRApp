@@ -153,7 +153,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         if(view == buttonSignup) {
             registerUser();
         }else{
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), LoginPage.class));
         }
     }
 

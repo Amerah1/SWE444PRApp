@@ -10,76 +10,57 @@
 
 
     <pl.droidsonroids.gif.GifImageView
-        android:layout_width="363dp"
-        android:layout_height="233dp"
+        android:layout_width="400dp"
+        android:layout_height="145dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="180dp"
         android:src="@drawable/logo"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="-4dp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="361dp"
+        android:layout_height="145dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
+        app:srcCompat="@drawable/pr" />
+
+    <Button
+        android:id="@+id/signup_but"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="130dp"
+        android:layout_marginLeft="40dp"
+        android:text="Sign up"
+        android:textColor="#616161"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.809"
-        android:id="@+id/linearLayout">
+        app:layout_constraintLeft_toLeftOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="User Login"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <Button
+        android:id="@+id/signin_but"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="130dp"
+        android:layout_marginRight="40dp"
+        android:onClick="Onclick2"
+        android:text="Sign in"
+        android:textColor="#616161"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:backgroundTint="#ffcc00"
-            android:hint="Enter email"
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            android:id="@+id/editTextPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:backgroundTint="#ffcc00"
-            android:hint="Enter password"
-            android:inputType="textPassword" />
-
-        <Button
-            android:id="@+id/buttonSignin"
-            android:layout_width="341dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Signup" />
-
-        <TextView
-            android:id="@+id/textViewSignin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="15dp"
-            android:text="Not have an account? Register"
-            android:textAlignment="center" />
-
-
-    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

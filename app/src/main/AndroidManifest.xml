@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".AdminHome" />
         <activity android:name=".UserHome" />
-        <activity android:name=".RegisterPage"></activity>
+        <activity android:name=".RegisterPage" />
+        <activity android:name=".LoginPage"></activity>
     </application>
 
 </manifest>
