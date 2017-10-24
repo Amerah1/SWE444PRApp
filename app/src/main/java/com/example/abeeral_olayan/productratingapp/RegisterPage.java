@@ -131,14 +131,14 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                             String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
                             if (email.matches(emailPattern))
                             {
-                                Toast.makeText(getApplicationContext(),"email address is already exists",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"email address is already exists",Toast.LENGTH_LONG).show();
                             }
                             else
                             {
-                                Toast.makeText(getApplicationContext(),"Invalid email formate", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Invalid email formate", Toast.LENGTH_LONG).show();
                             }
                             if(password.length()<6){
-                                Toast.makeText(getApplicationContext(),"Password length should ",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"Password length should ",Toast.LENGTH_LONG).show();
                             }
                         }
                         progressDialog.dismiss();

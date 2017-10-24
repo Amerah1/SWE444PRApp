@@ -29,6 +29,9 @@ public class LoginPage extends AppCompatActivity  implements View.OnClickListene
     private EditText editTextEmail;
     private EditText editTextPassword;
     private TextView textViewSignup;
+    private String password;
+    private String email;
+
 
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -41,7 +44,7 @@ public class LoginPage extends AppCompatActivity  implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login_page);
 
         //lamia
         //getting firebase auth object
@@ -60,8 +63,8 @@ public class LoginPage extends AppCompatActivity  implements View.OnClickListene
     }
     //method for user login
     private void userLogin(){
-        String email = editTextEmail.getText().toString().trim();
-        String password  = editTextPassword.getText().toString().trim();
+        email = editTextEmail.getText().toString().trim();
+        password  = editTextPassword.getText().toString().trim();
 
 
         //checking if email and passwords are empty
@@ -101,8 +104,19 @@ public class LoginPage extends AppCompatActivity  implements View.OnClickListene
                             }
                         }
                         else {
-                            // LoginActivity
-                            Toast.makeText(LoginPage.this,"login failed",Toast.LENGTH_LONG).show();
+                            //display some message here
+                            String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+                            if (email.matches(emailPattern))
+                            {
+                                Toast.makeText(getApplicationContext(),"email or password invalid",Toast.LENGTH_LONG).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(getApplicationContext(),"Invalid email formate", Toast.LENGTH_LONG).show();
+                            }
+                            if(password.length()<6){
+                                Toast.makeText(getApplicationContext(),"Password length should ",Toast.LENGTH_LONG).show();
+                            }
                         }
                         progressDialog.dismiss();
                     }
