@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Product Rating App</string>
+    <string name="title_activity_admin_home2">Admin Home</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
