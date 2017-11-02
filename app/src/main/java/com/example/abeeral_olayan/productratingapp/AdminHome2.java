@@ -105,7 +105,9 @@ public class AdminHome2 extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            finish();
+            //starting login activity
+            startActivity(new Intent(this, EditAdminProfile.class));
         } else if (id == R.id.nav_category) {
 
         } else if (id == R.id.nav_product) {
