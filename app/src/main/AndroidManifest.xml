@@ -26,10 +26,6 @@
             android:name=".AdminHome2"
             android:label="@string/title_activity_admin_home2"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".EditAdminProfile"
-            android:label="@string/title_activity_edit_admin_profile"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

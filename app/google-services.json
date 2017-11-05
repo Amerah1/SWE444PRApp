@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1020711550780-7be671fgvob213v9s8a2qmtuophpntj6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.abeeral_olayan.productratingapp",
+            "certificate_hash": "c0e7c19dfd6a293dcfc5a8e870c48b70274e2033"
+          }
+        },
+        {
+          "client_id": "1020711550780-l4qa5sojl5mavu2035b5g93j8fqd97vk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.abeeral_olayan.productratingapp",
+            "certificate_hash": "bbde19541e0a16f55e0e82ee0855a87b48f00dc3"
+          }
+        },
+        {
           "client_id": "1020711550780-16dcjbnnce6bbpd2m2vubhmv75k8mtht.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

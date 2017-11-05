@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -47,14 +50,7 @@ public class AdminHome2 extends AppCompatActivity
 
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -76,14 +72,14 @@ public class AdminHome2 extends AppCompatActivity
         }
     }
 
-   /* @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.admin_home2, menu);
+        getMenuInflater().inflate(R.menu.activity_admin_home2_drawer, menu);
         return true;
-    }*/
+    }
 
-  /*  @Override
+   /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -101,31 +97,44 @@ public class AdminHome2 extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_profile) {
-            finish();
-            //starting login activity
-            startActivity(new Intent(this, EditAdminProfile.class));
-        } else if (id == R.id.nav_category) {
+        //calling the method displayselectedscreen and passing the id of selected menu
+        displaySelectedScreen(item.getItemId());
+        return true;
+    }
+    private void displaySelectedScreen(int itemId) {
 
-        } else if (id == R.id.nav_product) {
+        //creating fragment object
+        Fragment fragment = null;
 
-        }else if (id == R.id.nav_home) {
-
-        }else if (id == R.id.nav_logout) {
-            //logging out the user
-            firebaseAuth.signOut();
-            //closing activity
-            finish();
-            //starting login activity
-            startActivity(new Intent(this, MainActivity.class));
-
+        //initializing the fragment object which is selected
+        switch (itemId) {
+            case R.id.nav_profile:
+                fragment = new profile();
+                break;
+            /*case R.id.nav_menu2:
+                fragment = new Menu2();
+                break;
+            case R.id.nav_menu3:
+                fragment = new Menu3();
+                break;*/
+            case R.id.nav_logout:
+                //logging out the user
+                firebaseAuth.signOut();
+                //closing activity
+                finish();
+                //starting login activity
+                startActivity(new Intent(this, MainActivity.class));
         }
 
+        //replacing the fragment
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
