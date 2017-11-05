@@ -18,7 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdminHome" />
         <activity android:name=".UserHome" />
         <activity android:name=".RegisterPage" />
         <activity android:name=".LoginPage" />
