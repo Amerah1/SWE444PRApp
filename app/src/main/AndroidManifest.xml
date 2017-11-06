@@ -25,6 +25,11 @@
             android:name=".AdminHome2"
             android:label="@string/title_activity_admin_home2"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserHome2"
+
+            android:label="@string/title_activity_user_home2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

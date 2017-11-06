@@ -20,7 +20,8 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class AdminHome2 extends AppCompatActivity
+
+public class UserHome2 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth firebaseAuth;
@@ -29,9 +30,10 @@ public class AdminHome2 extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_home2);
+        setContentView(R.layout.activity_user_home2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -50,12 +52,10 @@ public class AdminHome2 extends AppCompatActivity
 
 
 
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -71,11 +71,11 @@ public class AdminHome2 extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-   /* @Override
+/*
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_admin_home2_drawer, menu);
+        getMenuInflater().inflate(R.menu.user_home2, menu);
         return true;
     }
 
@@ -94,6 +94,8 @@ public class AdminHome2 extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }*/
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -109,8 +111,8 @@ public class AdminHome2 extends AppCompatActivity
 
         //initializing the fragment object which is selected
         switch (itemId) {
-            case R.id.nav_profile:
-                fragment = new profile();
+            case R.id.nav_Uprofile:
+                fragment = new userprofile();
                 break;
             /*case R.id.nav_menu2:
                 fragment = new Menu2();
