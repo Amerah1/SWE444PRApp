@@ -115,6 +115,9 @@ public class AdminHome2 extends AppCompatActivity
             case R.id.nav_product:
                 fragment = new AddProduct();
                 break;
+            /*case R.id.nav_home:
+                fragment = new AdminHome2();
+                break;
             /*case R.id.nav_menu3:
                 fragment = new Menu3();
                 break;*/

@@ -8,9 +8,4 @@
     tools:context="com.example.abeeral_olayan.productratingapp.UserHome2"
     tools:showIn="@layout/app_bar_user_home2">
 
-    <FrameLayout
-        android:id="@+id/content_frame_user"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    
 </android.support.constraint.ConstraintLayout>

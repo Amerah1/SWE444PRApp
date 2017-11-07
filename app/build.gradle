@@ -19,7 +19,7 @@ android {
     }
 
     // from here is for image storage
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
@@ -49,11 +49,10 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
     compile 'com.android.support:design:26.+'
 
-
-     // addition for spinner !
+    // addition for spinner !
 
     // from here is for image storage
-    compile'com.google.firebase:firebase-storage:10.2.1'
+    compile 'com.google.firebase:firebase-storage:10.2.1'
     compile 'com.firebase:firebase-client-android:2.4.0'
     // untill here
 
