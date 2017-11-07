@@ -2,19 +2,15 @@ package com.example.abeeral_olayan.productratingapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,12 +26,12 @@ public class UserHome2 extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_home);
+        setContentView(R.layout.activity_user_home2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_user);
         setSupportActionBar(toolbar);
 
 
-        //initializing firebase authentication object
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         //if the user is not logged in
@@ -72,28 +68,7 @@ public class UserHome2 extends AppCompatActivity
             super.onBackPressed();
         }
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.user_home2, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 
 
 
@@ -101,26 +76,21 @@ public class UserHome2 extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        //calling the method displayselectedscreen and passing the id of selected menu
+
         displaySelectedScreen(item.getItemId());
         return true;
     }
     private void displaySelectedScreen(int itemId) {
 
-        //creating fragment object
         Fragment fragment = null;
 
-        //initializing the fragment object which is selected
         switch (itemId) {
             case R.id.nav_Uprofile:
                 fragment = new userprofile();
                 break;
-            /*case R.id.nav_menu2:
-                fragment = new Menu2();
+           case R.id.nav_Uhome:
+               startActivity(new Intent(this, UserHome2.class));
                 break;
-            case R.id.nav_menu3:
-                fragment = new Menu3();
-                break;*/
             case R.id.nav_logout_user:
                 //logging out the user
                 firebaseAuth.signOut();

@@ -63,12 +63,9 @@ public class userprofile extends Fragment {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        //https://product-rating-app.firebaseio.com ,,,, ref
 
-        //editTextName.setText(user.getDisplayName());
         editTextEmail.setText(user.getEmail());
 
-        //to create listner, update info
         view.findViewById(R.id.edit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +84,7 @@ public class userprofile extends Fragment {
     private void EditUserInfo(){
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
-        //empty feild
+
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getActivity(),"Please enter email",Toast.LENGTH_LONG).show();
             return;

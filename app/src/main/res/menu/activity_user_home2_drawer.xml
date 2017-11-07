@@ -8,11 +8,8 @@
             android:id="@+id/nav_Uprofile"
             android:title="My profile" />
         <item
-            android:id="@+id/nav_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_Uhome"
+            android:title="Home" />
         <item
             android:id="@+id/nav_logout_user"
             android:title="Logout" />
