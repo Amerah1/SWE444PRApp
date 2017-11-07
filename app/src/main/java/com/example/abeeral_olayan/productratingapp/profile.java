@@ -56,16 +56,34 @@ public class profile extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("profile");
-        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         editTextName=(EditText) view.findViewById(R.id.editName);
         editTextEmail=(EditText) view.findViewById(R.id.editEmail);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
 
         //https://product-rating-app.firebaseio.com ,,,, ref
 
-        editTextName.setText(user.getDisplayName());
+       /*databaseReference.child("UserAdmin").child(user.getUid()).child("uaname").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //UserAdmin userAdmin=new UserAdmin();
+                //userAdmin.setUAName(dataSnapshot.getValue(UserAdmin.class).getUAName());
+                //name = userAdmin.getUAName();
+                name = dataSnapshot.getValue(true).toString();
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+       // name = databaseReference.child()
+
+
+
+        //editTextName.setText(name);
         editTextEmail.setText(user.getEmail());
 
         //to create listner, update info
@@ -97,7 +115,18 @@ public class profile extends Fragment {
             return;
         }
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        /*databaseReference.child("UserAdmin").child(user.getUid()).child("uaname").setValue("I'm writing data", new Firebase.CompletionListener() {
+            @Override
+            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
+                if (firebaseError != null) {
+                    System.out.println("Data could not be saved. " + firebaseError.getMessage());
+                } else {
+                    System.out.println("Data saved successfully.");
+                }
+            }
+        });*/
+
         databaseReference.child("UserAdmin").child(user.getUid()).child("uaname").setValue(name);
         user.updateEmail(email);
         Toast.makeText(getActivity(), "information saved...", Toast.LENGTH_LONG).show();

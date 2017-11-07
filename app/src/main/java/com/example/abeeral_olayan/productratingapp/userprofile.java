@@ -45,9 +45,6 @@ public class userprofile extends Fragment {
     private String name;
 
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
