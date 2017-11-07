@@ -17,6 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // from here is for image storage
+    packagingOptions{
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+
+    }
+    // untill here
 }
 
 dependencies {
@@ -39,6 +48,16 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.2.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
     compile 'com.android.support:design:26.+'
+
+
+     // addition for spinner !
+
+    // from here is for image storage
+    compile'com.google.firebase:firebase-storage:10.2.1'
+    compile 'com.firebase:firebase-client-android:2.4.0'
+    // untill here
+
+
     testCompile 'junit:junit:4.12'
 }
 // Add to the bottom of the file  firebase

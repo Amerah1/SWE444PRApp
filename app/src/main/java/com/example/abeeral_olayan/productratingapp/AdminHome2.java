@@ -112,10 +112,10 @@ public class AdminHome2 extends AppCompatActivity
             case R.id.nav_profile:
                 fragment = new profile();
                 break;
-            /*case R.id.nav_menu2:
-                fragment = new Menu2();
+            case R.id.nav_product:
+                fragment = new AddProduct();
                 break;
-            case R.id.nav_menu3:
+            /*case R.id.nav_menu3:
                 fragment = new Menu3();
                 break;*/
             case R.id.nav_logout:
