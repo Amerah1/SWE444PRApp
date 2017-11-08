@@ -100,7 +100,7 @@ public class LoginPage extends AppCompatActivity  implements View.OnClickListene
                             if(id.equals("aSK7RyMA8xfdaQNPF0xS6kAumam2")){
                                 startActivity(new Intent(getApplicationContext(), AdminHome2.class));
                             }else{
-                                startActivity(new Intent(getApplicationContext(), UserHome2.class));
+                                startActivity(new Intent(getApplicationContext(), UserHome.class));
                             }
                         }
                         else {
