@@ -115,12 +115,11 @@ public class AdminHome2 extends AppCompatActivity
             case R.id.nav_product:
                 fragment = new AddProduct();
                 break;
-            /*case R.id.nav_home:
-                fragment = new AdminHome2();
-                break;
+
             case R.id.nav_category:
                 fragment = new AddCategory();
-                break;*/
+                break;
+
             case R.id.nav_logout:
                 //logging out the user
                 firebaseAuth.signOut();
