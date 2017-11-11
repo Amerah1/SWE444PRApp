@@ -1,13 +1,17 @@
 package com.example.abeeral_olayan.productratingapp;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.DatabaseUtils;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +28,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.EventListener;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by lamia on 03/11/17.
  */
@@ -38,23 +46,20 @@ public class profile extends Fragment {
     private EditText editTextEmail;
     private Button ButtonEdit;
 
+
     private String name;
+    private String email;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //returning our layout file
-        //change R.layout.yourlayoutfilename for each of your fragments
-
         return inflater.inflate(R.layout.fragment_nav_profile, container, false);
-
     }
 
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("profile");
 
         editTextName=(EditText) view.findViewById(R.id.editName);
@@ -62,28 +67,18 @@ public class profile extends Fragment {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
-
-        //https://product-rating-app.firebaseio.com ,,,, ref
-
-       /*databaseReference.child("UserAdmin").child(user.getUid()).child("uaname").addValueEventListener(new ValueEventListener() {
+        databaseReference = databaseReference.child("UserAdmin").child(user.getUid()).child("uaname");
+        ValueEventListener EventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //UserAdmin userAdmin=new UserAdmin();
-                //userAdmin.setUAName(dataSnapshot.getValue(UserAdmin.class).getUAName());
-                //name = userAdmin.getUAName();
-                name = dataSnapshot.getValue(true).toString();
+                String name = dataSnapshot.getValue(String.class);
+                editTextName.setText(name);
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        databaseReference.addListenerForSingleValueEvent(EventListener);
 
-            }
-        });*/
-       // name = databaseReference.child()
-
-
-
-        //editTextName.setText(name);
         editTextEmail.setText(user.getEmail());
 
         //to create listner, update info
@@ -103,8 +98,8 @@ public class profile extends Fragment {
     }
 
     private void EditAdminInfo(){
-        String name = editTextName.getText().toString().trim();
-        String email = editTextEmail.getText().toString().trim();
+        name = editTextName.getText().toString().trim();
+        email = editTextEmail.getText().toString().trim();
         //empty feild
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getActivity(),"Please enter email",Toast.LENGTH_LONG).show();
@@ -116,20 +111,11 @@ public class profile extends Fragment {
         }
 
 
-        /*databaseReference.child("UserAdmin").child(user.getUid()).child("uaname").setValue("I'm writing data", new Firebase.CompletionListener() {
-            @Override
-            public void onComplete(FirebaseError firebaseError, Firebase firebase) {
-                if (firebaseError != null) {
-                    System.out.println("Data could not be saved. " + firebaseError.getMessage());
-                } else {
-                    System.out.println("Data saved successfully.");
-                }
-            }
-        });*/
-
-        databaseReference.child("UserAdmin").child(user.getUid()).child("uaname").setValue(name);
+        databaseReference.setValue(name);
         user.updateEmail(email);
         Toast.makeText(getActivity(), "information saved...", Toast.LENGTH_LONG).show();
         startActivity(new Intent(getActivity(), AdminHome2.class));
     }
+
+
 }

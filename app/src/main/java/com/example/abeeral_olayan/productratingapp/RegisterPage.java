@@ -116,7 +116,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                             String uid = user.getUid();
 
 
-                            UserAdmin userAdmin= new UserAdmin(uid,AUName.getText().toString());
+                            UserAdmin userAdmin= new UserAdmin("U",uid,AUName.getText().toString());
                             mDatabase= FirebaseDatabase.getInstance().getReference();
                             //mDatabase.child("users").child(uid).setValue(user);
 

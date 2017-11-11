@@ -6,13 +6,13 @@ package com.example.abeeral_olayan.productratingapp;
 
 public class UserAdmin {
 
-    private String UAID;
-    private String UAName;
-    private String AdminOrUser;
+    private  String UAID;
+    private  String UAName;
+    private  String AdminOrUser;
 
     public UserAdmin(){}
 
-    public UserAdmin(String UAID, String UAName){
+    public UserAdmin(String userOrAdmin, String UAID, String UAName){
         this.AdminOrUser="U";
         this.UAID=UAID;
         this.UAName=UAName;

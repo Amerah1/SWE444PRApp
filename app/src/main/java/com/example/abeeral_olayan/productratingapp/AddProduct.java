@@ -72,9 +72,6 @@ public class AddProduct extends Fragment {
 
         getActivity().setTitle("Add Product");
 
-
-
-
         // Start Spinner code
         mDatabase2 = FirebaseDatabase.getInstance().getReference().child("CATDB"); // تعتمد على اسم جدول الcategory
         Pcat = (Spinner) view.findViewById(R.id.spinner);

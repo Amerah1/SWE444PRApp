@@ -11,8 +11,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class UserProfile2 extends AppCompatActivity implements View.OnClickListener{
 
@@ -45,11 +48,21 @@ public class UserProfile2 extends AppCompatActivity implements View.OnClickListe
 
         editTextName = (EditText) findViewById(R.id.editName);
         editTextEmail = (EditText) findViewById(R.id.editEmail);
+
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = databaseReference.child("UserAdmin").child(user.getUid()).child("uaname");
+        ValueEventListener EventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String name = dataSnapshot.getValue(String.class);
+                editTextName.setText(name);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        databaseReference.addListenerForSingleValueEvent(EventListener);
 
-
-        //
         editTextEmail.setText(user.getEmail());
 
         ////////
@@ -91,7 +104,7 @@ public class UserProfile2 extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        databaseReference.child("UserAdmin").child(user.getUid()).child("uaname").setValue(name);
+        databaseReference.setValue(name);
         user.updateEmail(email);
         Toast.makeText(this,"information saved...",Toast.LENGTH_LONG).show();
         startActivity(new Intent(this,UserHome.class));
