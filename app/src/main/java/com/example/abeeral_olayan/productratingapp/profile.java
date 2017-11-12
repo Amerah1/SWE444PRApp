@@ -44,11 +44,13 @@ public class profile extends Fragment {
     private FirebaseUser user;
     private EditText editTextName;
     private EditText editTextEmail;
+    private EditText editTextPassword;
     private Button ButtonEdit;
 
 
     private String name;
     private String email;
+    private String password;
 
     @Nullable
     @Override
@@ -64,6 +66,7 @@ public class profile extends Fragment {
 
         editTextName=(EditText) view.findViewById(R.id.editName);
         editTextEmail=(EditText) view.findViewById(R.id.editEmail);
+        editTextPassword= (EditText) view.findViewById(R.id.editPassword);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -100,6 +103,7 @@ public class profile extends Fragment {
     private void EditAdminInfo(){
         name = editTextName.getText().toString().trim();
         email = editTextEmail.getText().toString().trim();
+        password = editTextPassword.getText().toString().trim();
         //empty feild
         if(TextUtils.isEmpty(email)){
             Toast.makeText(getActivity(),"Please enter email",Toast.LENGTH_LONG).show();
@@ -109,10 +113,24 @@ public class profile extends Fragment {
             Toast.makeText(getActivity(),"Please enter name",Toast.LENGTH_LONG).show();
             return;
         }
-
+        if(TextUtils.isEmpty(password)){
+            Toast.makeText(getActivity(),"Please enter password",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(password.length()<6){
+            Toast.makeText(getActivity(),"Password length should greater than 6 characters",Toast.LENGTH_LONG).show();
+            return;
+        }
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if (!email.matches(emailPattern))
+        {
+            Toast.makeText(getActivity(),"Invalid email formate", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         databaseReference.setValue(name);
         user.updateEmail(email);
+        user.updatePassword(password);
         Toast.makeText(getActivity(), "information saved...", Toast.LENGTH_LONG).show();
         startActivity(new Intent(getActivity(), AdminHome2.class));
     }

@@ -124,6 +124,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
                             //display some message here
                             Toast.makeText(RegisterPage.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(), UserHome.class));
 
 
                         }else{
@@ -138,7 +139,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                                 Toast.makeText(getApplicationContext(),"Invalid email formate", Toast.LENGTH_LONG).show();
                             }
                             if(password.length()<6){
-                                Toast.makeText(getApplicationContext(),"Password length should ",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Password length should greater than 6 characters",Toast.LENGTH_LONG).show();
                             }
                         }
                         progressDialog.dismiss();
