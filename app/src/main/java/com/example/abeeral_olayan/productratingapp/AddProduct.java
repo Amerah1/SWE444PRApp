@@ -3,6 +3,7 @@ package com.example.abeeral_olayan.productratingapp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -199,7 +200,7 @@ public class AddProduct extends Fragment {
     public void UploadImageFileToFirebaseStorage() {
 
         // Checking whether FilePathUri Is empty or not.
-        if (FilePathUri != null) {
+        if (FilePathUri != null && !TextUtils.isEmpty(PName.getText().toString().trim())) {
 
             // Setting progressDialog Title.
             progressDialog.setTitle("Product is Adding...");
@@ -263,11 +264,17 @@ public class AddProduct extends Fragment {
                         }
                     });
         }
-        else {
-            ///////////////////////////////////
 
-            Toast.makeText(getActivity(), "Please Select Image And Write the Product Name", Toast.LENGTH_LONG).show();
-        }
+        if (TextUtils.isEmpty(PName.getText().toString().trim()) && FilePathUri == null)
+            Toast.makeText(getActivity(), "Please set a name and select image for the product.", Toast.LENGTH_LONG).show();
+
+
+            if(TextUtils.isEmpty(PName.getText().toString().trim()) && FilePathUri != null )
+                Toast.makeText(getActivity(), "Please set a name for the product.", Toast.LENGTH_LONG).show();
+
+            if (FilePathUri == null && !TextUtils.isEmpty(PName.getText().toString().trim()))
+                Toast.makeText(getActivity(), "Please select image for the product.", Toast.LENGTH_LONG).show();
+
     }
 
 }

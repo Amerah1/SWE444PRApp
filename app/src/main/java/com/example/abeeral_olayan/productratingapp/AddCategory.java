@@ -3,6 +3,7 @@ package com.example.abeeral_olayan.productratingapp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -182,7 +183,7 @@ public class AddCategory extends Fragment {
     public void UploadImageFileToFirebaseStorage() {
 
         // Checking whether FilePathUri Is empty or not.
-        if (FilePathUri != null) {
+        if (FilePathUri != null && !TextUtils.isEmpty(ImageName.getText().toString().trim())) {
 
             // Setting progressDialog Title.
             progressDialog.setTitle("Category is Adding...");
@@ -243,11 +244,14 @@ public class AddCategory extends Fragment {
                         }
                     });
         }
-        else {
+        if (FilePathUri == null && TextUtils.isEmpty(ImageName.getText().toString().trim()))
+            Toast.makeText(getActivity(), "Please set a name and select image for the category.", Toast.LENGTH_LONG).show();
+        if(TextUtils.isEmpty(ImageName.getText().toString().trim()) && FilePathUri != null )
+            Toast.makeText(getActivity(), "Please set a name for the category.", Toast.LENGTH_LONG).show();
+        if (FilePathUri == null && !TextUtils.isEmpty(ImageName.getText().toString().trim()))
+            Toast.makeText(getActivity(), "Please select image for the category.", Toast.LENGTH_LONG).show();
 
-            Toast.makeText(getActivity(), "Please Select Image or Add Category Name", Toast.LENGTH_LONG).show();
 
-        }
     }
 
 
