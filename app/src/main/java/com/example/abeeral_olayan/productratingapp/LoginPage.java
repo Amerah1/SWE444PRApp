@@ -115,7 +115,7 @@ public class LoginPage extends AppCompatActivity  implements View.OnClickListene
                                 Toast.makeText(getApplicationContext(),"Invalid email format", Toast.LENGTH_LONG).show();
                             }
                             if(password.length()<6){
-                                Toast.makeText(getApplicationContext(),"Password length should ",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Password length should greater than 6 characters",Toast.LENGTH_LONG).show();
                             }
                         }
                         progressDialog.dismiss();
