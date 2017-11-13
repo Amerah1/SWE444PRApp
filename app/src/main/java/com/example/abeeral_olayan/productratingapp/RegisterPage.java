@@ -124,6 +124,8 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
                             //display some message here
                             Toast.makeText(RegisterPage.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(), UserHome.class));
+
 
 
                         }else{
