@@ -29,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -52,59 +53,56 @@ public class AddProduct extends Fragment {
     private EditText Pprice;
     private EditText Pdesc;
     private Spinner Pcat;
-    private ArrayList<String> arr = new ArrayList<>();
+    private ArrayList<String> categories;
     private Button Upload_image;
     private Button cancle;
+
     //private ImageView Pimage;
+
     Uri FilePathUri;
     StorageReference storageReference;
     DatabaseReference databaseReference;
     int Image_Request_Code = 7;
     ProgressDialog progressDialog ;
 
+
     // Folder path for Firebase Storage.
     private String Storage_Path = "Products Images";
 
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         getActivity().setTitle("Add Product");
 
         // Start Spinner code
-        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("CATDB"); // تعتمد على اسم جدول الcategory
-        Pcat = (Spinner) view.findViewById(R.id.spinner);
-        ////////////////////
-        final ArrayAdapter<String> arrayadap = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, arr);
-        Pcat.setAdapter(arrayadap);
 
-        mDatabase2.addChildEventListener(new ChildEventListener() {
+        categories = new ArrayList<String>();
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("CATDB");
+        ValueEventListener eventListener = new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                String value = dataSnapshot.getValue(String.class);
-                arr.add(value);
-                arrayadap.notifyDataSetChanged();
-            }
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren() ) {
+                    ImageUpload_Category category = ds.getValue(ImageUpload_Category.class);
+                    categories.add(category.getImageName());
+                    final ArrayAdapter<String> arrayadap;
+                    arrayadap = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
+                    Pcat = (Spinner) view.findViewById(R.id.spinner);
+                    Pcat.setAdapter(arrayadap);
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-            }
-        });
 
+            }
+        };
+
+        mDatabase2.addListenerForSingleValueEvent(eventListener);
         // End Spinner code
+
 
 // Start Image code
         storageReference = FirebaseStorage.getInstance().getReference();
