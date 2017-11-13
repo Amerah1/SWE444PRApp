@@ -55,7 +55,7 @@ public class AddProduct extends Fragment {
     private ArrayList<String> arr = new ArrayList<>();
     private Button Upload_image;
     private Button cancle;
-    private ImageView Pimage;
+    //private ImageView Pimage;
     Uri FilePathUri;
     StorageReference storageReference;
     DatabaseReference databaseReference;
@@ -118,7 +118,7 @@ public class AddProduct extends Fragment {
         Pdesc = (EditText) view.findViewById(R.id.Pdesc);
         Pcat = (Spinner) view.findViewById(R.id.spinner);
         Upload_image = (Button) view.findViewById(R.id.Pimage);
-        Pimage = (ImageView) view.findViewById(R.id.imageView);
+        //Pimage = (ImageView) view.findViewById(R.id.imageView);
         cancle = (Button) view.findViewById(R.id.CanclePB);
         //////////////
         progressDialog = new ProgressDialog(getActivity());
@@ -177,7 +177,7 @@ public class AddProduct extends Fragment {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), FilePathUri);
 
                 // Setting up bitmap selected image into ImageView.
-                Pimage.setImageBitmap(bitmap);
+                //Pimage.setImageBitmap(bitmap);
 
                 // After selecting image change choose button above text.
                 Upload_image.setText("Image Selected");

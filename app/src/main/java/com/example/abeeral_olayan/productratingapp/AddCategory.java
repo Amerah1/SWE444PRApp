@@ -53,7 +53,7 @@ public class AddCategory extends Fragment {
     EditText ImageName ;
 
     // Creating ImageView.
-    ImageView SelectImage;
+    //ImageView SelectImage;
 
     // Creating URI.
     Uri FilePathUri;
@@ -96,7 +96,7 @@ public class AddCategory extends Fragment {
         ImageName = (EditText) view.findViewById(R.id.CName);
 
         // Assign ID'S to image view.
-        SelectImage = (ImageView)view.findViewById(R.id.imageView2);
+        //SelectImage = (ImageView)view.findViewById(R.id.imageView2);
 
         // Assigning Id to ProgressDialog.
         progressDialog = new ProgressDialog(getActivity());
@@ -154,7 +154,7 @@ public class AddCategory extends Fragment {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), FilePathUri);
 
                 // Setting up bitmap selected image into ImageView.
-                SelectImage.setImageBitmap(bitmap);
+                //SelectImage.setImageBitmap(bitmap);
 
                 // After selecting image change choose button above text.
                 ChooseButton.setText("Image Selected");

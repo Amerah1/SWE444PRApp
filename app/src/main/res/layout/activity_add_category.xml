@@ -67,18 +67,6 @@
         app:layout_constraintLeft_toRightOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/CName" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintHorizontal_bias="0.233"
-        app:layout_constraintLeft_toRightOf="@+id/Cimage"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CName"
-        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
     <EditText
         android:id="@+id/CName"
@@ -105,7 +93,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/addcategory" />
+        app:srcCompat="@drawable/addcategory"
+        android:layout_marginLeft="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

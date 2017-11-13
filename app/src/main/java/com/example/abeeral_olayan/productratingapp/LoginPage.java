@@ -89,7 +89,7 @@ public class LoginPage extends AppCompatActivity  implements View.OnClickListene
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
-                        //if the task is successfull
+                        //if the task is successful
                         if(task.isSuccessful()){
                             //start the profile activity
                             finish();
@@ -112,7 +112,7 @@ public class LoginPage extends AppCompatActivity  implements View.OnClickListene
                             }
                             else
                             {
-                                Toast.makeText(getApplicationContext(),"Invalid email formate", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Invalid email format", Toast.LENGTH_LONG).show();
                             }
                             if(password.length()<6){
                                 Toast.makeText(getApplicationContext(),"Password length should ",Toast.LENGTH_LONG).show();

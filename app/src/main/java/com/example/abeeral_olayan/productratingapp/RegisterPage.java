@@ -73,9 +73,15 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         //getting email and password from edit texts
         email = editTextEmail.getText().toString().trim();
         password  = editTextPassword.getText().toString().trim();
+        String passwordAgain  = passAgain.getText().toString().trim();
         String name = AUName.getText().toString().trim();
 
         //checking if email and passwords are empty
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this,"Please enter Name",Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
             return;
@@ -88,6 +94,10 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         //Add
         if(TextUtils.isEmpty(name)){
             Toast.makeText(this,"Please enter Name",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(passwordAgain)){
+            Toast.makeText(this,"Please enter password again",Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -124,6 +134,8 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
                             //display some message here
                             Toast.makeText(RegisterPage.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(getApplicationContext(), UserHome.class));
+
 
 
                         }else{
@@ -135,10 +147,10 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                             }
                             else
                             {
-                                Toast.makeText(getApplicationContext(),"Invalid email formate", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Invalid email format", Toast.LENGTH_LONG).show();
                             }
                             if(password.length()<6){
-                                Toast.makeText(getApplicationContext(),"Password length should ",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(),"Password length should be more than 5 character",Toast.LENGTH_LONG).show();
                             }
                         }
                         progressDialog.dismiss();
