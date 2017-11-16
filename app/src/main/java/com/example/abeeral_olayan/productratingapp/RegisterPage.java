@@ -74,8 +74,13 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         email = editTextEmail.getText().toString().trim();
         password  = editTextPassword.getText().toString().trim();
         String name = AUName.getText().toString().trim();
+        String passag=passAgain.getText().toString();
 
         //checking if email and passwords are empty
+        if(TextUtils.isEmpty(name)){
+            Toast.makeText(this,"Please enter Name",Toast.LENGTH_LONG).show();
+            return;
+        }
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
             return;
@@ -86,8 +91,8 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             return;
         }
         //Add
-        if(TextUtils.isEmpty(name)){
-            Toast.makeText(this,"Please enter Name",Toast.LENGTH_LONG).show();
+        if(TextUtils.isEmpty(passag)){
+            Toast.makeText(this,"Please enter password again",Toast.LENGTH_LONG).show();
             return;
         }
 
