@@ -13,6 +13,11 @@
             android:title="Add product" />
 
         <item
+            android:id="@+id/nav_suggested"
+            android:title="Suggested Products" />
+
+
+        <item
             android:id="@+id/nav_logout"
             android:title="Logout" />
 

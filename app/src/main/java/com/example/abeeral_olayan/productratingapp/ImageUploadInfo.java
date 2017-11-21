@@ -6,12 +6,12 @@ package com.example.abeeral_olayan.productratingapp;
      */
     public class ImageUploadInfo {
 
-        public String imageName;
+        private String imageName;
 
-        public String imageURL;
-        public String Pdesc;
-        public String Pprice;
-        public String Pcat;
+        private String imageURL;
+        private String Pdesc;
+        private String Pprice;
+        private String Pcat;
 
 
         public ImageUploadInfo() {
@@ -26,12 +26,17 @@ package com.example.abeeral_olayan.productratingapp;
             this.Pcat= cat;
         }
 
-        public String getImageName() {
-            return imageName;
-        }
+        public String getImageName() {return imageName;}
         public String getImageURL() {
             return imageURL;
         }
+        public String getPdesc() {
+            return Pdesc;
+        }
+        public String getPcat() {
+            return Pcat;
+        }
+        public String getPprice() {return Pprice;}
 
     }
 

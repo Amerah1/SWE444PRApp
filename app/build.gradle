@@ -55,6 +55,8 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:10.2.1'
     compile 'com.firebase:firebase-client-android:2.4.0'
     // untill here
+    //for url image
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
 
     testCompile 'junit:junit:4.12'

@@ -15,8 +15,8 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="130dp"
-        android:layout_height="290dp"
+        android:layout_width="195dp"
+        android:layout_height="294dp"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@menu/activity_admin_home2_drawer" />
