@@ -6,11 +6,11 @@ package com.example.abeeral_olayan.productratingapp;
 public class SuggestProducctInfo {
 
 
-    private String SPName;
-    private String SPimageURL;
-    private String SPdesc;
-    private String SPprice;
-    private String SPcat;
+    private String spname;
+    private String spimageURL;
+    private String spdesc;
+    private String spprice;
+    private String spcat;
 
 
     public SuggestProducctInfo() {
@@ -18,27 +18,27 @@ public class SuggestProducctInfo {
 
     public SuggestProducctInfo(String name, String url,String desc,String price,String cat)
     {
-        this.SPName = name;
-        this.SPimageURL= url;
-        this.SPdesc= desc;
-        this.SPprice= price;
-        this.SPcat= cat;
+        this.spname = name;
+        this.spimageURL= url;
+        this.spdesc= desc;
+        this.spprice= price;
+        this.spcat= cat;
     }
 
    public String getSPName() {
-        return SPName;
+        return spname;
     }
     public String getSPimageURL() {
-        return SPimageURL;
+        return spimageURL;
     }
     public String getSPdesc() {
-        return SPdesc;
+        return spdesc;
     }
     public String getSPprice() {
-        return SPprice;
+        return spprice;
     }
     public String getSPcat() {
-        return SPcat;
+        return spcat;
     }
 
 

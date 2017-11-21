@@ -102,18 +102,18 @@ public class AdminHome2 extends AppCompatActivity
                     }
                 });*/
         suggest=new ArrayList<String>();
-        data=FirebaseDatabase.getInstance().getReference().child("PRDB").child("PInfo");
+        data=FirebaseDatabase.getInstance().getReference().child("SPRDB");
         ValueEventListener EventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //String val = dataSnapshot.getValue(String.class);
                 try {
                     for (DataSnapshot ds : dataSnapshot.getChildren() ) {
-                        ImageUploadInfo product = ds.getValue(ImageUploadInfo.class);
-                        suggest.add(product.getImageName());
+                        SuggestProducctInfo ct = ds.getValue(SuggestProducctInfo.class);
+                        suggest.add(ct.getSPName());
 
                         arrayAdapter=new ArrayAdapter<String>(AdminHome2.this , android.R.layout.simple_list_item_1,suggest);
-                        //size++;
+                        size++;
                     }
                 }catch (Exception e){
                     Toast.makeText(AdminHome2.this,e.getMessage(),Toast.LENGTH_LONG).show();}
@@ -123,7 +123,7 @@ public class AdminHome2 extends AppCompatActivity
             public void onCancelled(DatabaseError databaseError) {}
         };
         data.addListenerForSingleValueEvent(EventListener);
-        size=suggest.size();
+        //size=suggest.size();
 
 
 

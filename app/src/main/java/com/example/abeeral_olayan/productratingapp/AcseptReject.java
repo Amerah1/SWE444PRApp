@@ -53,7 +53,7 @@ public class AcseptReject extends Fragment {
         approv=(Button) view.findViewById(R.id.ApproveB);
         reject=(Button) view.findViewById(R.id.RejectB);
 
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB").child("PInfo").child(getArguments().getString("SPName"));
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB").child("PInfo").child("Guess"/*getArguments().getString("SPName")*/);
             ValueEventListener EventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

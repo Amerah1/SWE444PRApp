@@ -96,7 +96,7 @@ public class Suggest_products extends AppCompatActivity {
 // Start Image code
 
         storageReference = FirebaseStorage.getInstance().getReference();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB").child("PInfo");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB");
         AddSP = (Button) findViewById(R.id.AddSPB);
         SPName = (EditText) findViewById(R.id.PName);
         SPprice = (EditText) findViewById(R.id.Pprice);

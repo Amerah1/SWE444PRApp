@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -50,41 +49,38 @@ public class SuggestedProducts extends Fragment {
         suggested=new ArrayList<String>();
 
 
-        database = FirebaseDatabase.getInstance().getReference().child("SPRDB").child("PInfo");
+        database = FirebaseDatabase.getInstance().getReference().child("SPRDB");
 
-        try{
-            ValueEventListener eventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getChildren()==null){
-                        Toast.makeText(getActivity(),"No suggested product",Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getActivity(), AdminHome2.class));
-                    }
-                    try { for (DataSnapshot ds : dataSnapshot.getChildren() ) {
-                        SuggestProducctInfo sp = ds.getValue(SuggestProducctInfo.class);
-
-                        boolean add = suggested.add(sp.getSPName());
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildren()==null){
+                    Toast.makeText(getActivity(),"No suggested product",Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getActivity(), AdminHome2.class));
+                }
+                try { for (DataSnapshot ds : dataSnapshot.getChildren() ) {
+                       // ImageUploadInfo sd = ds.getValue(ImageUploadInfo.class);
+                          SuggestProducctInfo sd= ds.getValue(SuggestProducctInfo.class);
+                          suggested.add(sd.getSPName());
+                        //suggested.add(sd.getImageName());
                         final ArrayAdapter<String> array;
                         array = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, suggested);
                         Lpro = (ListView) view.findViewById(R.id.LProduct);
                         Lpro.setAdapter(array);
-                    }} catch (Exception e){
-                        Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                }
+                }} catch (Exception e){
+                Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+            }
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            };
+            }
+        };
 
+        database.addListenerForSingleValueEvent(eventListener);
 
-        database.addListenerForSingleValueEvent(eventListener);}catch (Exception e){
-            Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
-        }
-
-          try {
+          /* try {
 
 
             Lpro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,10 +93,8 @@ public class SuggestedProducts extends Fragment {
                     //Put the value
                     AcseptReject ldf = new AcseptReject ();
                     Bundle args = new Bundle();
-                    if (Lpro == null) {
-                        Lpro = (ListView) getLayoutInflater().inflate(R.layout.activity_suggested_products, parent, false);
-                    }
-                    args.putString("SPName", String.valueOf(Lpro.getItemIdAtPosition(position)));
+
+                    args.putString("PName", String.valueOf(Lpro.getItemIdAtPosition(position)));
                     ldf.setArguments(args);
 
 //Inflate the fragment
@@ -108,8 +102,8 @@ public class SuggestedProducts extends Fragment {
 
                 }
             });} catch (Exception e) {
-               Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
-           }
+               Toast.makeText(getActivity(),"send data",Toast.LENGTH_LONG).show();
+           }*/
 
 
 
