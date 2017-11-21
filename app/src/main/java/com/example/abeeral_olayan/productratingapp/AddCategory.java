@@ -214,10 +214,10 @@ public class AddCategory extends Fragment {
                             ImageUpload_Category ImageUpload_Category = new ImageUpload_Category(TempImageName, taskSnapshot.getDownloadUrl().toString());
 
                             // Getting image upload ID.
-                            String ImageUploadId = databaseReference.push().getKey();
+                            //String ImageUploadId = databaseReference.push().getKey();
 
                             // Adding image upload id s child element into databaseReference.
-                            databaseReference.child(ImageUploadId).setValue(ImageUpload_Category);
+                            databaseReference.child(ImageName.getText().toString()).setValue(ImageUpload_Category);
                         }
                     })
                     // If something goes wrong .

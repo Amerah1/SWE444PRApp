@@ -32,7 +32,8 @@
             android:label="@string/title_activity_user_home2"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UserHome" />
-        <activity android:name=".UserProfile2"></activity>
+        <activity android:name=".UserProfile2" />
+        <activity android:name=".Suggest_products"></activity>
     </application>
 
 </manifest>

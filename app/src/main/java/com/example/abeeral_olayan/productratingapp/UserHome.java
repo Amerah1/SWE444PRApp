@@ -14,6 +14,8 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
     private FirebaseAuth firebaseAuth;
     private Button buttonLogout;
     private Button buttonProfile;
+    private Button SuggestP;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +42,12 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
 
         buttonLogout= (Button) findViewById(R.id.logout);
         buttonProfile= (Button) findViewById(R.id.uprofile);
+        SuggestP= (Button) findViewById(R.id.SuggestP);
+
 
         buttonLogout.setOnClickListener(this);
         buttonProfile.setOnClickListener(this);
-
-
-
+        SuggestP.setOnClickListener(this);
     }
 
 
@@ -54,7 +56,13 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
         if(v == buttonProfile) {
             finish();
             startActivity(new Intent(this , UserProfile2.class));
-        }else{
+        }
+        else
+            if (v == SuggestP)
+                startActivity(new Intent(this , Suggest_products.class));
+
+
+            else{
             //logging out the user
             firebaseAuth.signOut();
             //closing activity
