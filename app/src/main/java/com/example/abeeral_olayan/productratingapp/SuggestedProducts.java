@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +51,7 @@ public class SuggestedProducts extends Fragment {
 
         //start
         suggested=new ArrayList<String>();
+        Lpro = (ListView) view.findViewById(R.id.LProduct);
 
 
         database = FirebaseDatabase.getInstance().getReference().child("SPRDB");
@@ -65,7 +70,7 @@ public class SuggestedProducts extends Fragment {
                         //suggested.add(sd.getImageName());
                         final ArrayAdapter<String> array;
                         array = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, suggested);
-                        Lpro = (ListView) view.findViewById(R.id.LProduct);
+
                         Lpro.setAdapter(array);
                 }} catch (Exception e){
                 Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
@@ -78,9 +83,9 @@ public class SuggestedProducts extends Fragment {
             }
         };
 
-        database.addListenerForSingleValueEvent(eventListener);
+          database.addListenerForSingleValueEvent(eventListener);
 
-          /* try {
+           try {
 
 
             Lpro.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -91,21 +96,41 @@ public class SuggestedProducts extends Fragment {
                     //startActivity(intent);
 
                     //Put the value
-                    AcseptReject ldf = new AcseptReject ();
+                    String val =(String) parent.getItemAtPosition(position);
+
+                    Fragment fr=new AcseptReject();
+                    FragmentManager fm=getFragmentManager();
+                    FragmentTransaction ft=fm.beginTransaction();
                     Bundle args = new Bundle();
+                    args.putString("PName", val);
+                    fr.setArguments(args);
+                    ft.replace(R.id.content_frame, fr);
+                    ft.commit();
 
-                    args.putString("PName", String.valueOf(Lpro.getItemIdAtPosition(position)));
-                    ldf.setArguments(args);
 
-//Inflate the fragment
-                    getFragmentManager().beginTransaction().add(R.id.container, ldf).commit();
+                    //AcseptReject ldf = new AcseptReject ();
+                    //Bundle args = new Bundle();
+                    //args.putString("PName", val);
+                    //ldf.setArguments(args);
+
+                    //Inflate the fragment
+                    //getFragmentManager().beginTransaction().add(R.id.container, ldf).commit();
+
+
+                    //Toast.makeText(getActivity().getApplicationContext(), ((TextView) view).getText(),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(),val,Toast.LENGTH_LONG).show();
+
+
 
                 }
             });} catch (Exception e) {
-               Toast.makeText(getActivity(),"send data",Toast.LENGTH_LONG).show();
-           }*/
+               Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();
+           }
 
 
 
     }
+
+
+
 }
