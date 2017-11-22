@@ -49,7 +49,7 @@ public class ProductPage extends AppCompatActivity {
             imageView = (ImageView) findViewById(R.id.imageView);
             String url="https://firebasestorage.googleapis.com/v0/b/productratingapp.appspot.com/o/view%20receipt.png?alt=media&token=2af33f57-68ba-4697-b623-c482bc9d03b7";
             //Glide.with(getApplicationContext().load(url).into(imageView));
-            databaseReference= FirebaseDatabase.getInstance().getReference().child("PRDB").child("Pinfo").child("Dior");
+            databaseReference= FirebaseDatabase.getInstance().getReference().child("PRDB").child("PInfo").child("lamia");
             /*try{
                 ImageUploadInfo p = new ImageUploadInfo("other", "this good", "50", "tv", "https://url", "0", "0");
                 databaseReference = FirebaseDatabase.getInstance().getReference();

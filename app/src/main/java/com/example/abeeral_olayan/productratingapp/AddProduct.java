@@ -145,8 +145,8 @@ public class AddProduct extends Fragment {
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getActivity(), AdminHome2.class));
-                startActivity(new Intent(getContext(), ProductPage.class));
+                startActivity(new Intent(getActivity(), AdminHome2.class));
+                //startActivity(new Intent(getContext(), ProductPage.class));
 
             }
         });

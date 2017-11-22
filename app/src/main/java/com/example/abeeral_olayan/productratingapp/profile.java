@@ -96,7 +96,7 @@ public class profile extends Fragment {
             public void onClick(View view) {
                 //startActivity(new Intent(getActivity(), AdminHome2.class));
 
-                    startActivity(new Intent(getContext(), ProductPage.class));
+                    startActivity(new Intent(getContext(), AdminHome2.class));
             }
         });
 

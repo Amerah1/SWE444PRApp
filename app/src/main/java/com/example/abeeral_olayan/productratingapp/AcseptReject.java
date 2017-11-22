@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,8 +49,6 @@ public class AcseptReject extends Fragment {
           //  titel=getArguments().getString("PName");
             // getActivity().setTitle(titel);}
             //getActivity().setTitle("Product information");}
-
-
         tname=(TextView)view.findViewById(R.id.textname);
         tprice=(TextView)view.findViewById(R.id.textPrice);
         tcategory=(TextView)view.findViewById(R.id.textCategory);
@@ -57,6 +56,19 @@ public class AcseptReject extends Fragment {
         image=(ImageView) view.findViewById(R.id.PImage);
         approv=(Button) view.findViewById(R.id.ApproveB);
         reject=(Button) view.findViewById(R.id.RejectB);
+
+        reject.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
+                db.removeValue();
+                try {
+                    Toast.makeText(getActivity(), "Rejected Successfully", Toast.LENGTH_LONG).show();
+                    //    startActivity(new Intent(getActivity(), SuggestedProducts.class));
+                     } catch (Exception e)
+                         {
+                             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                         }
+                     } });
 
             databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
             ValueEventListener EventListener = new ValueEventListener() {
