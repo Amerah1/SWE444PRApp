@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.abeeral_olayan.productratingapp.AdminHome2"
-    tools:showIn="@layout/app_bar_admin_home2"
-    android:background="@drawable/background">
+    tools:showIn="@layout/app_bar_admin_home2">
 
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
+
 
 </android.support.constraint.ConstraintLayout>

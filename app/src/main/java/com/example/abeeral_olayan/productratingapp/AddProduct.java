@@ -145,7 +145,9 @@ public class AddProduct extends Fragment {
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AdminHome2.class));
+                //startActivity(new Intent(getActivity(), AdminHome2.class));
+                startActivity(new Intent(getContext(), ProductPage.class));
+
             }
         });
 
@@ -231,7 +233,7 @@ public class AddProduct extends Fragment {
                             Toast.makeText(getActivity(), "Product Added Successfully ", Toast.LENGTH_LONG).show();
 
                             @SuppressWarnings("VisibleForTests")
-                            ImageUploadInfo imageUploadInfo = new ImageUploadInfo(TempImageName, taskSnapshot.getDownloadUrl().toString() ,Pdesc1,Pprice1,Pcat1);
+                            ImageUploadInfo imageUploadInfo = new ImageUploadInfo(TempImageName, taskSnapshot.getDownloadUrl().toString() ,Pdesc1,Pprice1,Pcat1,"0","0");
 
                             // Getting image upload ID.
                             //String ImageUploadId = databaseReference.push().getKey();

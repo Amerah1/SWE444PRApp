@@ -34,6 +34,7 @@
         <activity android:name=".UserHome" />
         <activity android:name=".UserProfile2" />
         <activity android:name=".Suggest_products"></activity>
+        <activity android:name=".ProductPage"></activity>
     </application>
 
 </manifest>

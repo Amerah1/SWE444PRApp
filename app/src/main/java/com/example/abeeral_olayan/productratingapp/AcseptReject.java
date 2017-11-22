@@ -86,7 +86,7 @@ public class AcseptReject extends Fragment {
             approv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ImageUploadInfo pr=new ImageUploadInfo(name,url,desc,price,cat);
+                    ImageUploadInfo pr=new ImageUploadInfo(name,url,desc,price,cat,"0","0");
                    // data=FirebaseDatabase.getInstance().getReference().child("PRDB").child("PInfo").setValue(pr);
 
 
