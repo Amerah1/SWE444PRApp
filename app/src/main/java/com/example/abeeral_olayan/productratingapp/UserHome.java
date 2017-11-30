@@ -1,13 +1,24 @@
 package com.example.abeeral_olayan.productratingapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserHome extends AppCompatActivity implements View.OnClickListener{
 
@@ -15,6 +26,12 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
     private Button buttonLogout;
     private Button buttonProfile;
     private Button SuggestP;
+    DatabaseReference databaseReference;
+    RecyclerView recyclerView;
+    RecyclerView.Adapter adapter ;
+    ProgressDialog progressDialog;
+    List<ImageUpload_Category> listCategories = new ArrayList<>();
+
 
 
     @Override
@@ -43,6 +60,58 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
         buttonLogout= (Button) findViewById(R.id.logout);
         buttonProfile= (Button) findViewById(R.id.uprofile);
         SuggestP= (Button) findViewById(R.id.SuggestP);
+
+        // Assign id to RecyclerView.
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
+        // Setting RecyclerView size true.
+        recyclerView.setHasFixedSize(true);
+
+        // Setting RecyclerView layout as LinearLayout.
+        recyclerView.setLayoutManager(new LinearLayoutManager(UserHome.this));
+
+        // Assign activity this to progress dialog.
+        progressDialog = new ProgressDialog(UserHome.this);
+
+        // Setting up message in Progress dialog.
+        progressDialog.setMessage("Loading Images From Firebase.");
+
+        // Showing progress dialog.
+        progressDialog.show();
+
+        // Setting up Firebase image upload folder path in databaseReference.
+        // The path is already defined in MainActivity.
+        databaseReference = FirebaseDatabase.getInstance().getReference("CATDB");
+
+        // Adding Add Value Event Listener to databaseReference.
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    ImageUpload_Category catInfo = postSnapshot.getValue(ImageUpload_Category.class);
+
+                    listCategories.add(catInfo);
+                }
+
+                adapter = new RecyclerViewAdapter(getApplicationContext(), listCategories);
+
+                recyclerView.setAdapter(adapter);
+
+                // Hiding the progress dialog.
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                // Hiding the progress dialog.
+                progressDialog.dismiss();
+
+            }
+        });
+
 
 
         buttonLogout.setOnClickListener(this);

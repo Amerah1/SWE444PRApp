@@ -107,8 +107,7 @@ public class AddProduct extends Fragment {
 
 // Start Image code
         storageReference = FirebaseStorage.getInstance().getReference();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("PRDB").child("PInfo");
-        databaseReference.setValue("p1");
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("PRDB");
         AddP = (Button) view.findViewById(R.id.AddPB);
         PName = (EditText) view.findViewById(R.id.PName);
         Pprice = (EditText) view.findViewById(R.id.Pprice);

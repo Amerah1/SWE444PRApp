@@ -47,6 +47,7 @@ public class AddCategory extends Fragment {
     // Folder path for Firebase Storage.
     String Storage_Path = "Categories Images/";
 
+
     // Creating button.
     Button ChooseButton, UploadButton, CancleButton;
 
