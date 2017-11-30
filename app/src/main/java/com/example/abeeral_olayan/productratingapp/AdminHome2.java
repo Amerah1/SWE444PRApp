@@ -2,15 +2,18 @@ package com.example.abeeral_olayan.productratingapp;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +24,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -41,6 +45,7 @@ public class AdminHome2 extends AppCompatActivity
     private DatabaseReference data;
     private ArrayList<String> suggest;
     private ArrayAdapter<String> arrayAdapter;
+    private TextView sug;
     int size=0;
 
 
@@ -77,69 +82,43 @@ public class AdminHome2 extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
 
 
 
         //////////////
-       /* Firebase.setAndroidContext(this);
-        DatabaseReference fbDb =  FirebaseDatabase.getInstance().getReference();
-
-
-
-        fbDb.child("product-rating-app/UserAdmin")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        // get total available quest
-                        size =(int) dataSnapshot.getChildrenCount();
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });*/
+        //num of suggested
         suggest=new ArrayList<String>();
         data=FirebaseDatabase.getInstance().getReference().child("SPRDB");
         ValueEventListener EventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //String val = dataSnapshot.getValue(String.class);
                 try {
-                    for (DataSnapshot ds : dataSnapshot.getChildren() ) {
-                        SuggestProducctInfo ct = ds.getValue(SuggestProducctInfo.class);
-                        suggest.add(ct.getSPName());
 
-                        arrayAdapter=new ArrayAdapter<String>(AdminHome2.this , android.R.layout.simple_list_item_1,suggest);
-                        //size++;
-                    }
+                    String num= String.valueOf(dataSnapshot.getChildrenCount());
+                    size=Integer.parseInt(num.substring(num.length()-1));
+                     Toast.makeText(AdminHome2.this,""+size,Toast.LENGTH_SHORT).show();
+
+
+                    sug=(TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+                            findItem(R.id.nav_suggested));
+                    if(size!=0)
+                        initializeCountDrawer(size);
+
                 }catch (Exception e){
                     Toast.makeText(AdminHome2.this,e.getMessage(),Toast.LENGTH_LONG).show();}
-                //suggest.add(val);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
         data.addListenerForSingleValueEvent(EventListener);
-        size=suggest.size();
 
 
 
-        Menu menuNav = navigationView.getMenu();
-        MenuItem element = menuNav.findItem(R.id.nav_suggested);
-        String before = element.getTitle().toString();
-
-        String counter = Integer.toString(size);
-        String s = before + "   "+counter+" ";
-        SpannableString sColored = new SpannableString( s );
-
-        sColored.setSpan(new BackgroundColorSpan( Color.RED ), s.length()-(counter.length()+2), s.length(), 0);
-        sColored.setSpan(new ForegroundColorSpan( Color.WHITE ), s.length()-(counter.length()+2), s.length(), 0);
 
 
-        element.setTitle(sColored);
 
 
 
@@ -229,4 +208,17 @@ public class AdminHome2 extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
+
+    private void initializeCountDrawer(int size){
+
+        //Gravity property aligns the text
+        sug.setGravity(Gravity.CENTER_VERTICAL);
+        sug.setTypeface(null, Typeface.BOLD);
+        sug.setTextColor(getResources().getColor(R.color.colorAccent));
+        sug.setText(""+size);
+
+
+    }
+
+
 }
