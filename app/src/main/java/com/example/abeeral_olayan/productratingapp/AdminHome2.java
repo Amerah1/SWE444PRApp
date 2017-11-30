@@ -1,5 +1,6 @@
 package com.example.abeeral_olayan.productratingapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
@@ -37,16 +40,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdminHome2 extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference data;
+    private DatabaseReference data,datacat;
     private ArrayList<String> suggest;
     private ArrayAdapter<String> arrayAdapter;
     private TextView sug;
     int size=0;
+    RecyclerView recycle;
+    RecyclerView.Adapter adap ;
+    ProgressDialog progressDia;
+    List<ImageUpload_Category> listCat = new ArrayList<>();
+
 
 
 
@@ -99,7 +108,7 @@ public class AdminHome2 extends AppCompatActivity
 
                     String num= String.valueOf(dataSnapshot.getChildrenCount());
                     size=Integer.parseInt(num.substring(num.length()-1));
-                     Toast.makeText(AdminHome2.this,""+size,Toast.LENGTH_SHORT).show();
+                     //Toast.makeText(AdminHome2.this,""+size,Toast.LENGTH_SHORT).show();
 
 
                     sug=(TextView) MenuItemCompat.getActionView(navigationView.getMenu().
@@ -116,6 +125,60 @@ public class AdminHome2 extends AppCompatActivity
         data.addListenerForSingleValueEvent(EventListener);
 
 
+
+
+       ///////
+        //list cat
+        // Assign id to RecyclerView.
+        recycle = (RecyclerView) findViewById(R.id.CatAd);
+
+        // Setting RecyclerView size true.
+        recycle.setHasFixedSize(true);
+
+        // Setting RecyclerView layout as LinearLayout.
+        recycle.setLayoutManager(new LinearLayoutManager(AdminHome2.this));
+
+        // Assign activity this to progress dialog.
+        progressDia = new ProgressDialog(AdminHome2.this);
+
+        // Setting up message in Progress dialog.
+        progressDia.setMessage("Loading Images From Firebase.");
+
+        // Showing progress dialog.
+        progressDia.show();
+
+        // Setting up Firebase image upload folder path in databaseReference.
+        // The path is already defined in MainActivity.
+        datacat = FirebaseDatabase.getInstance().getReference("CATDB");
+
+        // Adding Add Value Event Listener to databaseReference.
+        datacat.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+
+                    ImageUpload_Category catInfo = postSnapshot.getValue(ImageUpload_Category.class);
+
+                    listCat.add(catInfo);
+                }
+
+                adap = new RecyclerViewAdapter(getApplicationContext(), listCat);
+
+                recycle.setAdapter(adap);
+
+                // Hiding the progress dialog.
+                progressDia.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                // Hiding the progress dialog.
+                progressDia.dismiss();
+
+            }
+        });
 
 
 
