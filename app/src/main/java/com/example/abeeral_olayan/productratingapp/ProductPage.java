@@ -29,7 +29,6 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
     //defining view objects
     private RatingBar ratingBar;
     private Button addRating;
-    private ImageView imageView;
     private EditText editComment;
     private ListView listComments;
 
@@ -40,7 +39,6 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
     private ArrayList<String> ListComment;
     private int newRate=0;
     private ImageUploadInfo Rate;
-    //product opject
     private String Pcat;
     private String Pdesc;
     private String Pprice;
@@ -53,34 +51,16 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*this in the previoce page
-        Intent intent = new Intent(this, ProductPage.class);
-            intent.putExtra("productName", editTextName.getText().toString().trim());
-            startActivity(intent);
-        */
         final String productName = getIntent().getExtras().getString("productName");
         setContentView(R.layout.activity_product_page);
-
-        try{
             //initializing views
             ratingBar = (RatingBar) findViewById(R.id.ratingBar);
             addRating = (Button) findViewById(R.id.button);
-            imageView = (ImageView) findViewById(R.id.imageView);
             editComment= (EditText) findViewById(R.id.editComment);
             listComments= (ListView) findViewById(R.id.listComment);
-
             ListComment = new ArrayList<String>();
-            databaseReference= FirebaseDatabase.getInstance().getReference().child("PRDB").child(productName);
-            /*try{
-                for(int i=0; i<3; i++) {
-                    ImageUploadInfo p = new ImageUploadInfo("other", "this good", "50", "tv", "https://url", "0", "0");
-                    databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child("PRDB").child("PInfo").child("Dior" + i).setValue(p);
-                }
-            }catch (Exception e){
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            }*/
             //rating a product/////////////////////////////////////////////////////
+            databaseReference= FirebaseDatabase.getInstance().getReference().child("PRDB").child(productName);
             ValueEventListener EventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -105,83 +85,58 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
                     newRate = (int) v;
                 }
             });
-            //coments/////////////////////////////////////
+            //List comments/////////////////////////////////////
             DatabaseListComent = FirebaseDatabase.getInstance().getReference().child("Comments").child(productName);
             final ValueEventListener eventListener3 = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getChildren()==null){
                         Toast.makeText(getApplicationContext(),"No comments",Toast.LENGTH_LONG).show();
-                        //startActivity(new Intent(getActivity(), AdminHome2.class));
                     }
-                    try { for (DataSnapshot ds : dataSnapshot.getChildren() ) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren() ) {
                         String comment= ds.getValue(String.class);
                         ListComment.add(comment);
                         //suggested.add(sd.getImageName());
                         final ArrayAdapter<String> array;
                         array = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ListComment);
                         listComments.setAdapter(array);
-                    }} catch (Exception e){
-                        Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {}
             };
             DatabaseListComent.addListenerForSingleValueEvent(eventListener3);
-
             // add comment //////////////////////////////////
             editComment.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int i, KeyEvent Event) {
-                    // If the event is a key-down event on the "enter" button
                     if ((Event.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
-                        // Perform action on key
                         databaseReference2= FirebaseDatabase.getInstance().getReference().child("Comments").child(productName);
                         ValueEventListener EventListener1 = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 numOfComments= (int) dataSnapshot.getChildrenCount();
-                                if(!editComment.getText().toString().equals(null)) {
+                                if(!editComment.getText().toString().equals("")) {
                                     FirebaseDatabase.getInstance().getReference().child("Comments").child(productName).child("comment" + (numOfComments + 1)).setValue(editComment.getText().toString());
-                                    startActivity(new Intent(getApplicationContext(), ProductPage.class));
+                                    Intent intent = new Intent(getApplicationContext(), ProductPage.class);
+                                    intent.putExtra("productName",productName);
+                                    startActivity(intent);
                                 }
                             }
-
                             @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
+                            public void onCancelled(DatabaseError databaseError) {}
                         };
                         databaseReference2.addListenerForSingleValueEvent(EventListener1);
-                        //editComment.setText("");
                         return true;
                     }
                     return false;
                 }
             });
-
             //list view ///////////////////////////////
-
-
             addRating.setOnClickListener(this);
-        }catch(Exception e)
-        {
-            Toast.makeText(getApplicationContext(),e.getMessage(), Toast.LENGTH_LONG).show();
-
-        }
-
-
-
     }
-
     @Override
-    public void onClick(View view) {
-        if(view == addRating){
-            rating();
-        }
-
-    }
+    public void onClick(View view) { if(view == addRating){ rating(); } }
 
     private void rating() {
         numOfRating++;
@@ -195,8 +150,6 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
         Rate.setNumOfRating(""+numOfRating);
         Rate.setRating(""+rating);
         databaseReference.setValue(Rate);
-        startActivity(new Intent(getApplicationContext(), UserHome.class));
-
     }
 }
 
