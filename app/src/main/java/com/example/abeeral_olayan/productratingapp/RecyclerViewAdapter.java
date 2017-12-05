@@ -4,6 +4,8 @@ package com.example.abeeral_olayan.productratingapp;
  * Created by Leenah on 28/11/17.
  */
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +21,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     List<ImageUpload_Category> categoriesList;
 
     public RecyclerViewAdapter(Context context, List<ImageUpload_Category> TempList) {
-
         this.categoriesList = TempList;
-
         this.context = context;
     }
 
@@ -36,11 +36,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
+    //  onBindViewHolder called by RecyclerView to display the data at the specified position
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ImageUpload_Category UploadInfo = categoriesList.get(position);
+        final ImageUpload_Category UploadInfo = categoriesList.get(position);
+        holder.CategoryName.setText(UploadInfo.getImageName());
+        Glide.with(context).load(UploadInfo.getImageURL()).into(holder.CategoryImage);
 
-        holder.imageNameTextView.setText(UploadInfo.getImageName());
-        Glide.with(context).load(UploadInfo.getImageURL()).into(holder.imageView);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(context,ProductsView.class);
+                in.putExtra("CatName", UploadInfo.getImageName());
+                context.startActivity(in);
+            }
+        });
     }
 
     @Override
@@ -49,17 +58,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return categoriesList.size();
     }
 
+    // ViewHolder is used to speed up rendering of the recyclerView
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView imageView;
-        public TextView imageNameTextView;
+        public ImageView CategoryImage;
+        public TextView CategoryName;
+        public CardView cardView;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            CategoryImage = (ImageView) itemView.findViewById(R.id.CategoryImage);
 
-            imageNameTextView = (TextView) itemView.findViewById(R.id.ImageNameTextView);
+            CategoryName = (TextView) itemView.findViewById(R.id.CategoryName);
+            cardView = (CardView) itemView.findViewById(R.id.cardview1);
+
         }
     }
 }

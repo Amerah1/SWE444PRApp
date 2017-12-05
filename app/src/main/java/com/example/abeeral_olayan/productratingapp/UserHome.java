@@ -60,30 +60,20 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
         buttonLogout= (Button) findViewById(R.id.logout);
         buttonProfile= (Button) findViewById(R.id.uprofile);
         SuggestP= (Button) findViewById(R.id.SuggestP);
-
-        // Assign id to RecyclerView.
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         // Setting RecyclerView size true.
         recyclerView.setHasFixedSize(true);
-
         // Setting RecyclerView layout as LinearLayout.
         recyclerView.setLayoutManager(new LinearLayoutManager(UserHome.this));
 
-        // Assign activity this to progress dialog.
         progressDialog = new ProgressDialog(UserHome.this);
-
-        // Setting up message in Progress dialog.
-        progressDialog.setMessage("Loading Images From Firebase.");
-
-        // Showing progress dialog.
+        progressDialog.setMessage("Categories are Loading...");
         progressDialog.show();
 
         // Setting up Firebase image upload folder path in databaseReference.
-        // The path is already defined in MainActivity.
         databaseReference = FirebaseDatabase.getInstance().getReference("CATDB");
 
-        // Adding Add Value Event Listener to databaseReference.
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -95,8 +85,8 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
                     listCategories.add(catInfo);
                 }
 
+                // calling RecyclerViewAdapter.java
                 adapter = new RecyclerViewAdapter(getApplicationContext(), listCategories);
-
                 recyclerView.setAdapter(adapter);
 
                 // Hiding the progress dialog.
@@ -105,15 +95,12 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
                 // Hiding the progress dialog.
                 progressDialog.dismiss();
-
             }
         });
 
-
-
+        // buttons
         buttonLogout.setOnClickListener(this);
         buttonProfile.setOnClickListener(this);
         SuggestP.setOnClickListener(this);
@@ -129,7 +116,6 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
         else
             if (v == SuggestP)
                 startActivity(new Intent(this , Suggest_products.class));
-
 
             else{
             //logging out the user

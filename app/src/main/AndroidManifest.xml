@@ -33,8 +33,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".UserHome" />
         <activity android:name=".UserProfile2" />
-        <activity android:name=".Suggest_products"></activity>
-        <activity android:name=".ProductPage"></activity>
+        <activity android:name=".Suggest_products" />
+        <activity android:name=".ProductPage" />
+        <activity android:name=".ProductsView"></activity>
     </application>
 
 </manifest>
