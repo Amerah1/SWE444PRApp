@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
@@ -19,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -29,7 +31,8 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
     //defining view objects
     private RatingBar ratingBar;
     private Button addRating;
-    private ImageView imageView;
+    private ImageView imageView,image;
+    private TextView tname,tprice,tdescription,ratings;
     private EditText editComment;
     private ListView listComments;
 
@@ -41,7 +44,7 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
     private int newRate=0;
     private ImageUploadInfo Rate;
     //product opject
-    private String Pcat;
+    private String Pcat,Pimageurl;
     private String Pdesc;
     private String Pprice;
     private String imageName;
@@ -60,6 +63,12 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
         */
         final String productName = getIntent().getExtras().getString("productName");
         setContentView(R.layout.activity_product_page);
+
+        tname=(TextView)findViewById(R.id.textname);
+        tprice=(TextView)findViewById(R.id.textPrice);
+        tdescription=(TextView)findViewById(R.id.textDescription);
+        image=(ImageView) findViewById(R.id.PImage);
+        ratings=(TextView)findViewById(R.id.ratings);
 
         try{
             //initializing views
@@ -85,13 +94,25 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Rate = dataSnapshot.getValue(ImageUploadInfo.class);
-                    Pcat= Rate.getPcat();
-                    Pdesc= Rate.getPdesc();
-                    Pprice= Rate.getPprice();
-                    imageName= Rate.getImageName();
-                    imageURL= Rate.getImageURL();
+                    Pcat = Rate.getPcat();
+
+                    Pdesc = Rate.getPdesc();
+                    tdescription.setText(Pdesc);
+
+                    Pprice = Rate.getPprice();
+                    tprice.setText("Price: "+Pprice+" SR");
+
+                    imageName = Rate.getImageName();
+                    tname.setText(imageName);
+
+                    Pimageurl = Rate.getImageURL();
+                    Picasso.with(ProductPage.this).load(Pimageurl).into(image);
+
+                    imageURL = Rate.getImageURL();
                     numOfRating = Integer.parseInt(Rate.getNumOfRating());
                     rating = Double.parseDouble(Rate.getRating());
+                    ratings.setText(rating+"-"+numOfRating+"Vots");
+
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {}
