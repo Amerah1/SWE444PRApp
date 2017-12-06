@@ -164,7 +164,8 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 numOfComments= (int) dataSnapshot.getChildrenCount();
                                 if(!editComment.getText().toString().equals(null)) {
-                                    FirebaseDatabase.getInstance().getReference().child("Comments").child(productName).child("comment" + (numOfComments + 1)).setValue(editComment.getText().toString());
+                                    FirebaseDatabase.getInstance().getReference().child("Comments").child(productName).child("comment" + (numOfComments + 1)).setValue(editComment.getText().toString());                                    Intent intent = new Intent(getApplicationContext(),ProductPage.class);
+                                    intent.putExtra("productName",productName);
                                     startActivity(new Intent(getApplicationContext(), ProductPage.class));
                                 }
                             }
