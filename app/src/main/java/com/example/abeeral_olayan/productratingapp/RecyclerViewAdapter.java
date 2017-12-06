@@ -5,6 +5,9 @@ package com.example.abeeral_olayan.productratingapp;
  */
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,12 +16,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     Context context;
     List<ImageUpload_Category> categoriesList;
+    //firebase auth object
+    private FirebaseAuth firebaseAuth;
 
     public RecyclerViewAdapter(Context context, List<ImageUpload_Category> TempList) {
         this.categoriesList = TempList;
@@ -38,6 +45,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     //  onBindViewHolder called by RecyclerView to display the data at the specified position
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
         final ImageUpload_Category UploadInfo = categoriesList.get(position);
         holder.CategoryName.setText(UploadInfo.getImageName());
         Glide.with(context).load(UploadInfo.getImageURL()).into(holder.CategoryImage);
@@ -45,9 +55,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(context,ProductsView.class);
-                in.putExtra("CatName", UploadInfo.getImageName());
-                context.startActivity(in);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                String id= user.getUid();
+                if(id.equals("aSK7RyMA8xfdaQNPF0xS6kAumam2")){
+                    /*Fragment fragment = new ListProducts();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    ft.replace(R.id.content_frame, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();*/
+
+                    /*//ListProducts listProducts = new ListProducts();
+                    Intent in = new Intent(context,ListProducts.class);
+                    in.putExtra("CatName", UploadInfo.getImageName());
+                    context.startActivity(in);*/
+                }else{
+                    Intent in = new Intent(context,ProductsView.class);
+                    in.putExtra("CatName", UploadInfo.getImageName());
+                    context.startActivity(in);
+                }
+
             }
         });
     }

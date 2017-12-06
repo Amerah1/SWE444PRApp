@@ -105,17 +105,12 @@ public class AdminHome2 extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 try {
-
                     String num= String.valueOf(dataSnapshot.getChildrenCount());
                     size=Integer.parseInt(num.substring(num.length()-1));
-                     //Toast.makeText(AdminHome2.this,""+size,Toast.LENGTH_SHORT).show();
-
-
                     sug=(TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                             findItem(R.id.nav_suggested));
                     if(size!=0)
                         initializeCountDrawer(size);
-
                 }catch (Exception e){
                     Toast.makeText(AdminHome2.this,e.getMessage(),Toast.LENGTH_LONG).show();}
             }
@@ -128,60 +123,13 @@ public class AdminHome2 extends AppCompatActivity
 
 
        ///////
-        //list cat
-        // Assign id to RecyclerView.
-        recycle = (RecyclerView) findViewById(R.id.CatAd);
-
-        // Setting RecyclerView size true.
-        recycle.setHasFixedSize(true);
-
-        // Setting RecyclerView layout as LinearLayout.
-        recycle.setLayoutManager(new LinearLayoutManager(AdminHome2.this));
-
-        // Assign activity this to progress dialog.
-        progressDia = new ProgressDialog(AdminHome2.this);
-
-        // Setting up message in Progress dialog.
-        progressDia.setMessage("Loading Images From Firebase.");
-
-        // Showing progress dialog.
-        progressDia.show();
-
-        // Setting up Firebase image upload folder path in databaseReference.
-        // The path is already defined in MainActivity.
-        datacat = FirebaseDatabase.getInstance().getReference("CATDB");
-
-        // Adding Add Value Event Listener to databaseReference.
-        datacat.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-
-                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-
-                    ImageUpload_Category catInfo = postSnapshot.getValue(ImageUpload_Category.class);
-
-                    listCat.add(catInfo);
-                }
-
-                adap = new RecyclerViewAdapter(getApplicationContext(), listCat);
-
-                recycle.setAdapter(adap);
-
-                // Hiding the progress dialog.
-                progressDia.dismiss();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-                // Hiding the progress dialog.
-                progressDia.dismiss();
-
-            }
-        });
 
 
-
+        Fragment fragment1 = new ListCategoriess();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment1);
+        ft.commit();
 
 
 
@@ -253,12 +201,18 @@ public class AdminHome2 extends AppCompatActivity
                 break;
 
             case R.id.nav_logout:
-                //logging out the user
                 firebaseAuth.signOut();
                 //closing activity
                 finish();
                 //starting login activity
                 startActivity(new Intent(this, MainActivity.class));
+                break;
+
+            case R.id.nav_ListCategory:
+                fragment = new ListCategoriess();
+                break;
+                default:
+                    fragment = new ListCategoriess();
         }
 
         //replacing the fragment
@@ -268,6 +222,7 @@ public class AdminHome2 extends AppCompatActivity
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
