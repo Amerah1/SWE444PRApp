@@ -47,7 +47,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class AddProduct extends Fragment {
 
-
     private Button AddP;
     private DatabaseReference mDatabase2;
     private EditText PName;
@@ -66,10 +65,8 @@ public class AddProduct extends Fragment {
     int Image_Request_Code = 7;
     ProgressDialog progressDialog ;
 
-
     // Folder path for Firebase Storage.
     String Storage_Path = "Products Images/";
-
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
@@ -91,19 +88,14 @@ public class AddProduct extends Fragment {
                     arrayadap = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
                     Pcat = (Spinner) view.findViewById(R.id.spinner);
                     Pcat.setAdapter(arrayadap);
-
                 }
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
 
         mDatabase2.addListenerForSingleValueEvent(eventListener);
         // End Spinner code
-
 
 // Start Image code
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -135,19 +127,13 @@ public class AddProduct extends Fragment {
         AddP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // Calling method to upload selected image on Firebase storage.
                 UploadImageFileToFirebaseStorage();
-
             }
         });
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AdminHome2.class));
-                //startActivity(new Intent(getContext(), ProductPage.class));
-
-            }
+            public void onClick(View view) {startActivity(new Intent(getActivity(), AdminHome2.class));}
         });
 
     }
@@ -156,10 +142,7 @@ public class AddProduct extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.activity_add_product, container,false);
-
-
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -173,27 +156,18 @@ public class AddProduct extends Fragment {
             try {
                 // Getting selected image into Bitmap.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), FilePathUri);
-
                 // Setting up bitmap selected image into ImageView.
                 //Pimage.setImageBitmap(bitmap);
-
                 // After selecting image change choose button above text.
                 Upload_image.setText("Image Selected");
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException e) {e.printStackTrace(); }
         }
     }
 
-
     // Creating Method to get the selected image file Extension from File Path URI.
     public String GetFileExtension(Uri uri) {
-
         ContentResolver contentResolver = getActivity().getContentResolver();
-
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-
         // Returning the file Extension.
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri)) ;
 
@@ -259,10 +233,8 @@ public class AddProduct extends Fragment {
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-
                             // Setting progressDialog Title.
                             progressDialog.setTitle("Product is Adding...");
-
                         }
                     });
         }
@@ -276,7 +248,5 @@ public class AddProduct extends Fragment {
 
             if (FilePathUri == null && !TextUtils.isEmpty(PName.getText().toString().trim()))
                 Toast.makeText(getActivity(), "Please select image for the product.", Toast.LENGTH_LONG).show();
-
     }
-
 }

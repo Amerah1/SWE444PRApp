@@ -1,5 +1,6 @@
 package com.example.abeeral_olayan.productratingapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -63,7 +64,7 @@ public class AcseptReject extends Fragment {
                 db.removeValue();
                 try {
                     Toast.makeText(getActivity(), "Rejected Successfully", Toast.LENGTH_LONG).show();
-                    //    startActivity(new Intent(getActivity(), SuggestedProducts.class));
+                        startActivity(new Intent(getActivity(), SuggestedProducts.class));
                      } catch (Exception e)
                          {
                              Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();

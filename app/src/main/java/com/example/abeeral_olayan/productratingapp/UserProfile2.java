@@ -88,7 +88,7 @@ public class UserProfile2 extends AppCompatActivity implements View.OnClickListe
         }else{
             finish();
             //starting login activity
-            startActivity(new Intent(this, UserHome.class));
+            startActivity(new Intent(this, ProductPage.class));
         }
     }
 
