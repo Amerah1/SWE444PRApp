@@ -79,45 +79,6 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
             listComments= (ListView) findViewById(R.id.listComment);
 
             ListComment = new ArrayList<String>();
-            databaseReference= FirebaseDatabase.getInstance().getReference().child("PRDB").child(productName);
-            /*try{
-                for(int i=0; i<3; i++) {
-                    ImageUploadInfo p = new ImageUploadInfo("other", "this good", "50", "tv", "https://url", "0", "0");
-                    databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child("PRDB").child("PInfo").child("Dior" + i).setValue(p);
-                }
-            }catch (Exception e){
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-            }*/
-            //rating a product/////////////////////////////////////////////////////
-            ValueEventListener EventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Rate = dataSnapshot.getValue(ImageUploadInfo.class);
-                    Pcat = Rate.getPcat();
-
-                    Pdesc = Rate.getPdesc();
-                    tdescription.setText(Pdesc);
-
-                    Pprice = Rate.getPprice();
-                    tprice.setText("Price: "+Pprice+" SR");
-
-                    imageName = Rate.getImageName();
-                    tname.setText(imageName);
-
-                    Pimageurl = Rate.getImageURL();
-                    Picasso.with(ProductPage.this).load(Pimageurl).into(image);
-
-                    imageURL = Rate.getImageURL();
-                    numOfRating = Integer.parseInt(Rate.getNumOfRating());
-                    rating = Double.parseDouble(Rate.getRating());
-                    ratings.setText(rating+"-"+numOfRating+"Vots");
-
-                }
-                @Override
-                public void onCancelled(DatabaseError databaseError) {}
-            };
-            databaseReference.addListenerForSingleValueEvent(EventListener);
             // select star///////////////////////////////
             ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
@@ -126,6 +87,31 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
                     newRate = (int) v;
                 }
             });
+            databaseReference= FirebaseDatabase.getInstance().getReference().child("PRDB").child(productName);
+            //rating a product/////////////////////////////////////////////////////
+            ValueEventListener EventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Rate = dataSnapshot.getValue(ImageUploadInfo.class);
+                    Pcat = Rate.getPcat();
+                    Pdesc = Rate.getPdesc();
+                    tdescription.setText(Pdesc);
+                    Pprice = Rate.getPprice();
+                    tprice.setText("Price: "+Pprice+" SR");
+                    imageName = Rate.getImageName();
+                    tname.setText(imageName);
+                    Pimageurl = Rate.getImageURL();
+                    Picasso.with(ProductPage.this).load(Pimageurl).into(image);
+                    imageURL = Rate.getImageURL();
+                    numOfRating = Integer.parseInt(Rate.getNumOfRating());
+                    rating = Double.parseDouble(Rate.getRating());
+                    ratings.setText(rating+"-"+numOfRating+"Vots");
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            };
+            databaseReference.addListenerForSingleValueEvent(EventListener);
+
             //coments/////////////////////////////////////
             DatabaseListComent = FirebaseDatabase.getInstance().getReference().child("Comments").child(productName);
             final ValueEventListener eventListener3 = new ValueEventListener() {
@@ -164,9 +150,11 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 numOfComments= (int) dataSnapshot.getChildrenCount();
                                 if(!editComment.getText().toString().equals(null)) {
-                                    FirebaseDatabase.getInstance().getReference().child("Comments").child(productName).child("comment" + (numOfComments + 1)).setValue(editComment.getText().toString());                                    Intent intent = new Intent(getApplicationContext(),ProductPage.class);
+                                    FirebaseDatabase.getInstance().getReference().child("Comments").child(productName).child("comment" + (numOfComments + 1)).setValue(editComment.getText().toString());
+                                    Intent intent = new Intent(getApplicationContext(), ProductPage.class);
                                     intent.putExtra("productName",productName);
-                                    startActivity(new Intent(getApplicationContext(), ProductPage.class));
+                                    startActivity(intent);
+
                                 }
                             }
 
