@@ -97,7 +97,7 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
                     Pdesc = Rate.getPdesc();
                     tdescription.setText(Pdesc);
                     Pprice = Rate.getPprice();
-                    tprice.setText("Price: "+Pprice+" SR");
+                    //tprice.setText("Price: "+Pprice+" SR");
                     imageName = Rate.getImageName();
                     tname.setText(imageName);
                     Pimageurl = Rate.getImageURL();
