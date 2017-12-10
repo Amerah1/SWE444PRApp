@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +27,7 @@ import com.squareup.picasso.Picasso;
 
 public class AcseptReject extends Fragment {
 
-    private DatabaseReference databaseReference, data;
+    private DatabaseReference databaseReference , data;
     private TextView tname,tprice,tdescription,tcategory;
     private Button approv,reject;
     private ImageView image;
@@ -100,10 +102,23 @@ public class AcseptReject extends Fragment {
                 @Override
                 public void onClick(View view) {
                     ImageUploadInfo pr=new ImageUploadInfo(name,url,desc,price,cat,"0","0");
-                   // data=FirebaseDatabase.getInstance().getReference().child("PRDB").child("PInfo").setValue(pr);
+                    FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel).setValue(pr);
+                    DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
+                    db.removeValue();
 
+                    try {
+                        Toast.makeText(getActivity(), "Accepted Successfully", Toast.LENGTH_LONG).show();
+                        /*Fragment fragment = new SuggestedProducts();
 
+                        FragmentManager fragmentManager = getFragmentManager();
 
+                        fragmentManager.beginTransaction().replace(R.id.aa, fragment).commit();*/
+
+                        startActivity(new Intent(getActivity(), SuggestedProducts.class));
+                    } catch (Exception e)
+                    {
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 
