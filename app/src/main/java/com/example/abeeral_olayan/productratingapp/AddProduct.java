@@ -131,9 +131,10 @@ public class AddProduct extends Fragment {
                 UploadImageFileToFirebaseStorage();
             }
         });
+                                                                           // ////////////////////////////////////()___________change to prodect admin prodect page********************
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {startActivity(new Intent(getActivity(), AdminHome2.class));}
+            public void onClick(View view) {startActivity(new Intent(getActivity(), prodectpageAdmin.class));}
         });
 
     }

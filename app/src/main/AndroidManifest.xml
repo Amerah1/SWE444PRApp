@@ -35,7 +35,9 @@
         <activity android:name=".UserProfile2" />
         <activity android:name=".Suggest_products" />
         <activity android:name=".ProductPage" />
-        <activity android:name=".ProductsView"></activity>
+        <activity android:name=".ProductsView" />
+        <activity android:name=".EditProdectInfoN" />
+        <activity android:name=".prodectpageAdmin"></activity>
     </application>
 
 </manifest>
