@@ -174,7 +174,7 @@ public class Suggest_products extends AppCompatActivity {
     public void UploadImageFileToFirebaseStorage() {
 
         // Checking whether FilePathUri Is empty or not.
-        if (FilePathUri != null) {
+        if (FilePathUri != null && !TextUtils.isEmpty(SPName.getText().toString().trim())) {
 
             // Setting progressDialog Title.
             progressDialog.setTitle("Sending Request...");
@@ -239,12 +239,17 @@ public class Suggest_products extends AppCompatActivity {
 
                         }
                     });
-        } else {
-
-            Toast.makeText(Suggest_products.this, "Please Select Image And Write the Product Name", Toast.LENGTH_LONG).show();
         }
+
+        if (TextUtils.isEmpty(SPName.getText().toString().trim()) && FilePathUri == null)
+            Toast.makeText(this, "Please set a name and select image for the product.", Toast.LENGTH_LONG).show();
+
+
+        if(TextUtils.isEmpty(SPName.getText().toString().trim()) && FilePathUri != null )
+            Toast.makeText(this, "Please set a name for the product.", Toast.LENGTH_LONG).show();
+
+        if (FilePathUri == null && !TextUtils.isEmpty(SPName.getText().toString().trim()))
+            Toast.makeText(this, "Please select image for the product.", Toast.LENGTH_LONG).show();
+
     }
-
-
-
-        }
+            }
