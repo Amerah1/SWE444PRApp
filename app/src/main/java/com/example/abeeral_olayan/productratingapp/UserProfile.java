@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UserProfile extends Fragment {
 
+
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private FirebaseUser user;

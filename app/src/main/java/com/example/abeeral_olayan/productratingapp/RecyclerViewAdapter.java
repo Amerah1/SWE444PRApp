@@ -3,8 +3,10 @@ package com.example.abeeral_olayan.productratingapp;
 /**
  * Created by Leenah on 28/11/17.
  */
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -23,6 +25,7 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     Context context;
+    private Activity contexe1;
     List<ImageUpload_Category> categoriesList;
     //firebase auth object
     private FirebaseAuth firebaseAuth;
@@ -58,17 +61,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 String id= user.getUid();
                 if(id.equals("aSK7RyMA8xfdaQNPF0xS6kAumam2")){
-                    /*Fragment fragment = new ListProducts();
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction ft = fragmentManager.beginTransaction();
-                    ft.replace(R.id.content_frame, fragment);
-                    ft.addToBackStack(null);
-                    ft.commit();*/
+                    Fragment fragment = new ProductListAdmin();
+                    Bundle args = new Bundle();
+                    args.putString("CName", UploadInfo.getImageName());
+                    fragment.setArguments(args);
 
-                    /*//ListProducts listProducts = new ListProducts();
-                    Intent in = new Intent(context,ListProducts.class);
-                    in.putExtra("CatName", UploadInfo.getImageName());
-                    context.startActivity(in);*/
+
+
+                    //getFragmentManager().beginTransaction().add(R.id.content_frame, fragment).commit();
+
+
+                        //Inflate the fragment
+                    //contexe1.getFragmentManager().beginTransaction().add(R.id.content_frame, fragment).commit();
+
                 }else{
                     Intent in = new Intent(context,ProductsView.class);
                     in.putExtra("CatName", UploadInfo.getImageName());

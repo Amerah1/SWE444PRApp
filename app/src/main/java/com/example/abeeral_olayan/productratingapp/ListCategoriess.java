@@ -23,9 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListCategoriess extends Fragment {
-    private DatabaseReference data,datacat, databaseReference;
-    private ArrayList<String> suggest;
-    private ArrayAdapter<String> arrayAdapter;
+    private DatabaseReference databaseReference;
+
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter ;
     ProgressDialog progressDialog;
@@ -44,7 +43,7 @@ public class ListCategoriess extends Fragment {
         getActivity().setTitle("Categories List");
 
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView1);
 
         // Setting RecyclerView size true.
         recyclerView.setHasFixedSize(true);

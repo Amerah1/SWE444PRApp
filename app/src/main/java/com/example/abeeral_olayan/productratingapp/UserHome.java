@@ -20,12 +20,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserHome extends AppCompatActivity implements View.OnClickListener{
+public class UserHome extends AppCompatActivity{
 
     private FirebaseAuth firebaseAuth;
     private Button buttonLogout;
     private Button buttonProfile;
     private Button SuggestP;
+    private Button homep;
     DatabaseReference databaseReference;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter ;
@@ -60,6 +61,7 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
         buttonLogout= (Button) findViewById(R.id.logout);
         buttonProfile= (Button) findViewById(R.id.uprofile);
         SuggestP= (Button) findViewById(R.id.SuggestP);
+        homep= (Button)  findViewById(R.id.homeB);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
         // Setting RecyclerView size true.
@@ -101,29 +103,37 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener{
         });
 
         // buttons
-        buttonLogout.setOnClickListener(this);
-        buttonProfile.setOnClickListener(this);
-        SuggestP.setOnClickListener(this);
+        buttonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(UserHome.this, UserProfile2.class));
+
+            }
+        });
+        homep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(UserHome.this, UserHome.class));
+
+            }
+        });
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //logging out the user
+                firebaseAuth.signOut();
+                //closing activity
+                finish();
+                //starting login activity
+                startActivity(new Intent(UserHome.this, MainActivity.class));
+
+            }
+        });
     }
 
 
-    @Override
-    public void onClick(View v) {
-        if(v == buttonProfile) {
-            finish();
-            startActivity(new Intent(this , UserProfile2.class));
-        }
-        else
-            if (v == SuggestP)
-                startActivity(new Intent(this , Suggest_products.class));
 
-            else{
-            //logging out the user
-            firebaseAuth.signOut();
-            //closing activity
-            finish();
-            //starting login activity
-            startActivity(new Intent(this, MainActivity.class));
-        }
-    }
 }

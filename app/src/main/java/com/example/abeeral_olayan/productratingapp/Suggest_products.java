@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,11 @@ import java.util.ArrayList;
 
 public class Suggest_products extends AppCompatActivity {
 
+    private FirebaseAuth firebaseAuth;
+    private Button buttonLogout;
+    private Button buttonProfile;
+    private Button SuggestP;
+    private Button homep;
     private Button AddSP;
     private DatabaseReference mDatabase2;
     private EditText SPName;
@@ -63,7 +69,7 @@ public class Suggest_products extends AppCompatActivity {
         protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_products);
-            setTitle("Suggest Product/");
+            setTitle("Suggest Product");
 
         // Start Spinner code
 
@@ -97,6 +103,10 @@ public class Suggest_products extends AppCompatActivity {
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB");
+            buttonLogout= (Button) findViewById(R.id.logout);
+            buttonProfile= (Button) findViewById(R.id.uprofile);
+            SuggestP= (Button) findViewById(R.id.SuggestP);
+            homep= (Button)  findViewById(R.id.homeB);
         AddSP = (Button) findViewById(R.id.AddSPB);
         SPName = (EditText) findViewById(R.id.PName);
         SPprice = (EditText) findViewById(R.id.Pprice);
@@ -135,6 +145,46 @@ public class Suggest_products extends AppCompatActivity {
                 startActivity(new Intent(Suggest_products.this, UserHome.class));
             }
         });
+
+            SuggestP.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // Calling method to upload selected image on Firebase storage.
+                    startActivity(new Intent(Suggest_products.this, Suggest_products.class));
+
+                }
+            });
+
+            buttonProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    startActivity(new Intent(Suggest_products.this, UserProfile2.class));
+
+                }
+            });
+            homep.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    startActivity(new Intent(Suggest_products.this, UserHome.class));
+
+                }
+            });
+            buttonLogout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    //logging out the user
+                    firebaseAuth.signOut();
+                    //closing activity
+                    finish();
+                    //starting login activity
+                    startActivity(new Intent(Suggest_products.this, MainActivity.class));
+
+                }
+            });
     }
 
         @Override

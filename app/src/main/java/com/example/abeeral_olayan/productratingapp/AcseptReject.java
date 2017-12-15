@@ -106,6 +106,29 @@ public class AcseptReject extends Fragment {
                     DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
                     db.removeValue();
 
+                    //////////////
+                    //num of suggested
+                    /*data=FirebaseDatabase.getInstance().getReference().child("SPRDB");
+                    ValueEventListener EventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            AdminHome2 adminHome2=new AdminHome2();
+
+                            String num= String.valueOf(dataSnapshot.getChildrenCount());
+                            int size=Integer.parseInt(num.substring(num.length()-1));
+
+                            if(size!=0) {
+                                adminHome2.initializeCountDrawer(size);
+                            }
+
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    };
+                    data.addListenerForSingleValueEvent(EventListener);*/
+
+
+
                     try {
                         Toast.makeText(getActivity(), "Accepted Successfully", Toast.LENGTH_LONG).show();
                         /*Fragment fragment = new SuggestedProducts();
@@ -114,7 +137,7 @@ public class AcseptReject extends Fragment {
 
                         fragmentManager.beginTransaction().replace(R.id.aa, fragment).commit();*/
 
-                        startActivity(new Intent(getActivity(), SuggestedProducts.class));
+                        //startActivity(new Intent(getActivity(), SuggestedProducts.class));
                     } catch (Exception e)
                     {
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();

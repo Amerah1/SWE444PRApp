@@ -17,9 +17,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class UserProfile2 extends AppCompatActivity implements View.OnClickListener{
+public class UserProfile2 extends AppCompatActivity {
 
 
+    private Button buttonLogout;
+    private Button buttonProfile;
+    private Button SuggestP;
+    private Button homep;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private FirebaseUser user;
@@ -50,6 +54,10 @@ public class UserProfile2 extends AppCompatActivity implements View.OnClickListe
         editTextName = (EditText) findViewById(R.id.editName);
         editTextEmail = (EditText) findViewById(R.id.editEmail);
         editTextPassword = (EditText) findViewById(R.id.editPassword);
+        buttonLogout= (Button) findViewById(R.id.logout);
+        buttonProfile= (Button) findViewById(R.id.uprofile);
+        SuggestP= (Button) findViewById(R.id.SuggestP);
+        homep= (Button)  findViewById(R.id.homeB);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -71,26 +79,49 @@ public class UserProfile2 extends AppCompatActivity implements View.OnClickListe
         buttonEdit= (Button) findViewById(R.id.edit);
         buttonCancle= (Button) findViewById(R.id.cancle);
 
-        buttonEdit.setOnClickListener(this);
-        buttonCancle.setOnClickListener(this);
+        // buttons
+        buttonProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                startActivity(new Intent(UserProfile2.this, UserProfile2.class));
 
+            }
+        });
+        try {
 
-    }
+        homep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                startActivity(new Intent(UserProfile2.this, UserHome.class));
 
-
-    @Override
-    public void onClick(View v) {
-        if(v == buttonEdit) {
-            EditUserInfo();
-
-        }else{
-            finish();
-            //starting login activity
-            startActivity(new Intent(this, ProductPage.class));
+            }
+        });}catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //logging out the user
+                firebaseAuth.signOut();
+                //closing activity
+                finish();
+                //starting login activity
+                startActivity(new Intent(UserProfile2.this, MainActivity.class));
+
+            }
+        });
+
+
+
     }
+
+
+
+
+
 
     private void EditUserInfo() {
         String name = editTextName.getText().toString().trim();

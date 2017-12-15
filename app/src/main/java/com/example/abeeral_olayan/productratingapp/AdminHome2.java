@@ -26,7 +26,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +52,9 @@ public class AdminHome2 extends AppCompatActivity
     private ArrayList<String> suggest;
     private ArrayAdapter<String> arrayAdapter;
     private TextView sug;
+    private DatabaseReference database;
+    private ListView Lcat;
+    private ArrayList<String> category;
     int size=0;
     RecyclerView recycle;
     RecyclerView.Adapter adap ;
@@ -78,6 +83,10 @@ public class AdminHome2 extends AppCompatActivity
             startActivity(new Intent(this, MainActivity.class));
         }
 
+       FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, new ListCategories());
+        ft.commit();
         //getting current user
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
@@ -124,13 +133,73 @@ public class AdminHome2 extends AppCompatActivity
 
        ///////
 
+        //start
+       /* category=new ArrayList<String>();
+        Lcat = (ListView) findViewById(R.id.LCategory);
 
-        Fragment fragment1 = new ListCategoriess();
+
+        database = FirebaseDatabase.getInstance().getReference().child("CATDB");
+
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                try { for (DataSnapshot ds : dataSnapshot.getChildren() ) {
+                    // ImageUploadInfo sd = ds.getValue(ImageUploadInfo.class);
+                    ImageUpload_Category sd= ds.getValue(ImageUpload_Category.class);
+                    category.add(sd.getImageName());
+                    //suggested.add(sd.getImageName());
+                    final ArrayAdapter<String> array;
+                    array = new ArrayAdapter<String>(AdminHome2.this, android.R.layout.simple_list_item_1, category);
+
+                    Lcat.setAdapter(array);
+                }} catch (Exception e){
+                    Toast.makeText(AdminHome2.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        database.addListenerForSingleValueEvent(eventListener);
+
+
+
+        Lcat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(AdminHome2.this,"her",Toast.LENGTH_LONG).show();
+
+
+                String val =(String) parent.getItemAtPosition(position);
+
+
+
+                try{Fragment fragment = new ProductListAdmin();
+                Bundle args = new Bundle();
+                args.putString("CName", val);
+                fragment.setArguments(args);
+               // FragmentManager fragmentManager = getSupportFragmentManager();
+               // FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                //ft.replace(R.id.content_frame, fragment);
+                //ft.commit();
+                }catch (Exception e){Toast.makeText(AdminHome2.this,e.getMessage(),Toast.LENGTH_LONG).show();}
+            }
+        });
+
+
+
+
+
+        /*Fragment fragment1 = new ListCategoriess();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, fragment1);
-        ft.commit();
-
+        ft.commit();*/
 
 
 
@@ -148,27 +217,7 @@ public class AdminHome2 extends AppCompatActivity
         }
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_admin_home2_drawer, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -209,10 +258,10 @@ public class AdminHome2 extends AppCompatActivity
                 break;
 
             case R.id.nav_ListCategory:
-                fragment = new ListCategoriess();
+                fragment = new ListCategories();
                 break;
                 default:
-                    fragment = new ListCategoriess();
+                    fragment = new ListCategories();
         }
 
         //replacing the fragment
@@ -227,7 +276,7 @@ public class AdminHome2 extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    private void initializeCountDrawer(int size){
+    public void initializeCountDrawer(int size){
 
         //Gravity property aligns the text
         sug.setGravity(Gravity.CENTER_VERTICAL);

@@ -12,6 +12,8 @@
     card_view:cardMaxElevation="5dp"
     card_view:contentPadding="5dp">
 
+
+
     <RelativeLayout
 
         android:id="@+id/RelativeLayout1"
