@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +29,7 @@ import com.squareup.picasso.Picasso;
 
 public class AcseptReject extends Fragment {
 
-    private DatabaseReference databaseReference , data;
+    private DatabaseReference databaseReference , data, data1;
     private TextView tname,tprice,tdescription,tcategory;
     private Button approv,reject;
     private ImageView image;
@@ -49,9 +51,9 @@ public class AcseptReject extends Fragment {
 
 
         //if (bundle!=null) {
-          //  titel=getArguments().getString("PName");
-            // getActivity().setTitle(titel);}
-            //getActivity().setTitle("Product information");}
+        //  titel=getArguments().getString("PName");
+        // getActivity().setTitle(titel);}
+        //getActivity().setTitle("Product information");}
         tname=(TextView)view.findViewById(R.id.textname);
         tprice=(TextView)view.findViewById(R.id.textPrice);
         tcategory=(TextView)view.findViewById(R.id.textCategory);
@@ -65,86 +67,105 @@ public class AcseptReject extends Fragment {
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
                 db.removeValue();
                 try {
-                    Toast.makeText(getActivity(), "Rejected Successfully", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getActivity(), SuggestedProducts.class));
-                     } catch (Exception e)
-                         {
-                             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                         }
-                     } });
 
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
-            ValueEventListener EventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    SuggestProducctInfo product = dataSnapshot.getValue(SuggestProducctInfo.class);
-                    name=product.getSPName();
-                    tname.setText(name);
-                    price=product.getSPprice();
-                    tprice.setText(price);
-                    cat=product.getSPcat();
-                    tcategory.setText(cat);
-                    desc=product.getSPdesc();
-                    tdescription.setText(desc);
-                    url=product.getSPimageURL();
-                    Picasso.with(getActivity()).load(url).into(image);
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            };
-            databaseReference.addListenerForSingleValueEvent(EventListener);
-
-
-            approv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ImageUploadInfo pr=new ImageUploadInfo(name,url,desc,price,cat,"0","0");
-                    FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel).setValue(pr);
-                    DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
-                    db.removeValue();
-
-                    //////////////
-                    //num of suggested
-                    /*data=FirebaseDatabase.getInstance().getReference().child("SPRDB");
+                    data1=FirebaseDatabase.getInstance().getReference().child("SPRDB");
                     ValueEventListener EventListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            AdminHome2 adminHome2=new AdminHome2();
+                            try {
+                                String num= String.valueOf(dataSnapshot.getChildrenCount());
+                                int size=Integer.parseInt(num.substring(num.length()-1));
+                                ((AdminHome2)getActivity()).initializeCountDrawer(size);
 
-                            String num= String.valueOf(dataSnapshot.getChildrenCount());
-                            int size=Integer.parseInt(num.substring(num.length()-1));
-
-                            if(size!=0) {
-                                adminHome2.initializeCountDrawer(size);
-                            }
-
+                            }catch (Exception e){
+                                Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();}
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {}
                     };
-                    data.addListenerForSingleValueEvent(EventListener);*/
+                    data1.addListenerForSingleValueEvent(EventListener);
 
 
 
-                    try {
-                        Toast.makeText(getActivity(), "Accepted Successfully", Toast.LENGTH_LONG).show();
-                        /*Fragment fragment = new SuggestedProducts();
-
-                        FragmentManager fragmentManager = getFragmentManager();
-
-                        fragmentManager.beginTransaction().replace(R.id.aa, fragment).commit();*/
-
-                        //startActivity(new Intent(getActivity(), SuggestedProducts.class));
-                    } catch (Exception e)
-                    {
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(getActivity(), "Rejected Successfully", Toast.LENGTH_LONG).show();
+                    Fragment fr = new SuggestedProducts();
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    ft.replace(R.id.content_frame, fr);
+                    ft.commit();  } catch (Exception e)
+                {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-            });
+            } });
+
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
+        ValueEventListener EventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                SuggestProducctInfo product = dataSnapshot.getValue(SuggestProducctInfo.class);
+                name=product.getSPName();
+                tname.setText(name);
+                price=product.getSPprice();
+                tprice.setText(price);
+                cat=product.getSPcat();
+                tcategory.setText(cat);
+                desc=product.getSPdesc();
+                tdescription.setText(desc);
+                url=product.getSPimageURL();
+                Picasso.with(getActivity()).load(url).into(image);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        databaseReference.addListenerForSingleValueEvent(EventListener);
+
+
+        approv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImageUploadInfo pr=new ImageUploadInfo(name,url,desc,price,cat,"0","0");
+                FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel).setValue(pr);
+                DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("SPRDB").child(titel);
+                db.removeValue();
+
+                try {
+                    data1=FirebaseDatabase.getInstance().getReference().child("SPRDB");
+                    ValueEventListener EventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            try {
+                                String num= String.valueOf(dataSnapshot.getChildrenCount());
+                                int size=Integer.parseInt(num.substring(num.length()-1));
+                                ((AdminHome2)getActivity()).initializeCountDrawer(size);
+
+                            }catch (Exception e){
+                                Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();}
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    };
+                    data1.addListenerForSingleValueEvent(EventListener);
+
+
+                    Toast.makeText(getActivity(), "Accepted Successfully", Toast.LENGTH_LONG).show();
+                    Fragment fr = new SuggestedProducts();
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+
+                    ft.replace(R.id.content_frame, fr);
+                    ft.commit();
+
+                } catch (Exception e)
+                {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         //}
     }
 }
+

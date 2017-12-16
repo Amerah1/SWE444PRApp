@@ -300,7 +300,7 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <Button
-        android:id="@+id/uprofile"
+        android:id="@+id/uprofile2"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="87dp"
         android:layout_height="53dp"
@@ -317,16 +317,16 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/SuggestP"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        android:id="@+id/SuggestP2"
+        style="@android:style/Widget.Button.Small"
         android:layout_width="109dp"
-        android:layout_height="51dp"
+        android:layout_height="72dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="448dp"
+        android:layout_marginTop="436dp"
         android:text="Suggest Product"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.644"
@@ -334,7 +334,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/logout2"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="81dp"
         android:layout_height="43dp"
@@ -351,7 +351,7 @@
         app:layout_constraintVertical_bias="0.982" />
 
     <Button
-        android:id="@+id/home"
+        android:id="@+id/home2"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="80dp"
         android:layout_height="46dp"
@@ -362,7 +362,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
+        app:layout_constraintVertical_bias="0.982"
+        android:layout_marginLeft="8dp" />
 
 
 </android.support.constraint.ConstraintLayout>

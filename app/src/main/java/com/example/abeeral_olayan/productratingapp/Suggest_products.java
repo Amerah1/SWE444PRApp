@@ -103,10 +103,10 @@ public class Suggest_products extends AppCompatActivity {
 
         storageReference = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("SPRDB");
-            buttonLogout= (Button) findViewById(R.id.logout);
-            buttonProfile= (Button) findViewById(R.id.uprofile);
-            SuggestP= (Button) findViewById(R.id.SuggestP);
-            homep= (Button)  findViewById(R.id.homeB);
+            buttonLogout= (Button) findViewById(R.id.logout2);
+            buttonProfile= (Button) findViewById(R.id.uprofile2);
+            SuggestP= (Button) findViewById(R.id.SuggestP2);
+            homep= (Button)  findViewById(R.id.home2);
         AddSP = (Button) findViewById(R.id.AddSPB);
         SPName = (EditText) findViewById(R.id.PName);
         SPprice = (EditText) findViewById(R.id.Pprice);

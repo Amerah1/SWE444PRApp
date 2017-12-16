@@ -10,6 +10,8 @@ import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -89,15 +91,23 @@ public class profile extends Fragment {
             @Override
             public void onClick(View view) {
                 EditAdminInfo();
+                Fragment fr = new ListCategories();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+
+                ft.replace(R.id.content_frame, fr);
+                ft.commit();
             }
         });
         view.findViewById(R.id.cancle).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getActivity(), AdminHome2.class));/
+                Fragment fr = new ListCategories();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
 
-
-                    startActivity(new Intent(getContext(), AdminHome2.class));
+                ft.replace(R.id.content_frame, fr);
+                ft.commit();
             }
         });
 

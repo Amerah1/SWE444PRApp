@@ -47,7 +47,7 @@ public class ListCategories extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //getActivity().setTitle("Suggested Products");
+        getActivity().setTitle("Admin Home");
 
 
         //start

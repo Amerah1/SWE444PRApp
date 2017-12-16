@@ -168,23 +168,22 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar3"
         android:layout_width="400dp"
-        android:layout_height="75dp"
+        android:layout_height="134dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="436dp"
         android:background=" 	#D3D3D3"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="436dp" />
 
     <Button
-        android:id="@+id/uprofile"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        android:id="@+id/uprofile1"
+        style="@android:style/Widget.Button.Small"
         android:layout_width="87dp"
-        android:layout_height="53dp"
+        android:layout_height="61dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -192,13 +191,13 @@
         android:text="My profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.284"
+        app:layout_constraintHorizontal_bias="0.311"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.981" />
 
     <Button
-        android:id="@+id/SuggestP"
+        android:id="@+id/SuggestP1"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="109dp"
         android:layout_height="51dp"
@@ -215,7 +214,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/logout"
+        android:id="@+id/logout1"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="81dp"
         android:layout_height="43dp"
@@ -232,7 +231,7 @@
         app:layout_constraintVertical_bias="0.982" />
 
     <Button
-        android:id="@+id/home"
+        android:id="@+id/home1"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="80dp"
         android:layout_height="46dp"
@@ -243,7 +242,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
+        app:layout_constraintVertical_bias="0.982"
+        android:layout_marginLeft="8dp" />
 
 
 

@@ -120,13 +120,19 @@ public class ProductInfoAdmin extends Fragment {
 
                     Toast.makeText(getActivity(), "comments deleted Successfully", Toast.LENGTH_LONG).show();
 
+                Fragment fr = new ListCategories();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+
+                ft.replace(R.id.content_frame, fr);
+                ft.commit();
 
             } });
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fr = new EditProdAdmin();//////يتعدل
+                Fragment fr = new EditProdAdmin();
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 Bundle args = new Bundle();

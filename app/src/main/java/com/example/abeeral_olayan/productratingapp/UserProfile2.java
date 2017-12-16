@@ -54,10 +54,10 @@ public class UserProfile2 extends AppCompatActivity {
         editTextName = (EditText) findViewById(R.id.editName);
         editTextEmail = (EditText) findViewById(R.id.editEmail);
         editTextPassword = (EditText) findViewById(R.id.editPassword);
-        buttonLogout= (Button) findViewById(R.id.logout);
-        buttonProfile= (Button) findViewById(R.id.uprofile);
-        SuggestP= (Button) findViewById(R.id.SuggestP);
-        homep= (Button)  findViewById(R.id.homeB);
+        buttonLogout= (Button) findViewById(R.id.logout1);
+        buttonProfile= (Button) findViewById(R.id.uprofile1);
+        SuggestP= (Button) findViewById(R.id.SuggestP1);
+        homep= (Button)  findViewById(R.id.home1);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -85,6 +85,15 @@ public class UserProfile2 extends AppCompatActivity {
             public void onClick(View view) {
 
                 startActivity(new Intent(UserProfile2.this, UserProfile2.class));
+
+            }
+        });
+
+        SuggestP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(UserProfile2.this, Suggest_products.class));
 
             }
         });

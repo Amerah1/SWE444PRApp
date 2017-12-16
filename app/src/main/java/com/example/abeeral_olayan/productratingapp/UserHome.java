@@ -119,6 +119,14 @@ public class UserHome extends AppCompatActivity{
 
             }
         });
+        SuggestP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(UserHome.this, Suggest_products.class));
+
+            }
+        });
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
