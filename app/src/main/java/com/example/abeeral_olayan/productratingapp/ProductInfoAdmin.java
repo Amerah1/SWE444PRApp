@@ -69,9 +69,9 @@ public class ProductInfoAdmin extends Fragment {
         edit=(Button) view.findViewById(R.id.editinf);
         delete=(Button) view.findViewById(R.id.deletP);
 
-      //  listComments= (ListView) view.findViewById(R.id.listCommentA);  *********_______() make it as comment becous xml in my vervoin
+       listComments= (ListView) view.findViewById(R.id.listCommentA);  //*********_______() make it as comment becous xml in my vervoin
 
-       // ListComment = new ArrayList<String>(); *********_______() make it as comment becous xml in my vervoin
+       ListComment = new ArrayList<String>();// *********_______() make it as comment becous xml in my vervoin
 
         // Start Spinner code
 
@@ -115,7 +115,7 @@ public class ProductInfoAdmin extends Fragment {
         };
         databaseReference.addListenerForSingleValueEvent(EventListener);
 
-/*
+
         DatabaseListComent = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
         final ValueEventListener eventListener3 = new ValueEventListener() {
             @Override
@@ -140,7 +140,7 @@ public class ProductInfoAdmin extends Fragment {
         };
         DatabaseListComent.addListenerForSingleValueEvent(eventListener3);
 
-*/
+
 
 
         delete.setOnClickListener(new View.OnClickListener() {
