@@ -1,12 +1,5 @@
 package com.example.abeeral_olayan.productratingapp;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -52,19 +45,21 @@ import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
+
 /**
  * Created by abeeral-olayan on 12/14/17.
  */
 
 public class EditProdAdmin extends Fragment {
 
-    String titel;
 
     public  static final String Database_Path="All_Image_Uploads_Database";//-----------()____________________
     private DatabaseReference mDatabase2;
     private DatabaseReference mDatabase1;
     private DatabaseReference mDatabase3;
+
     private DatabaseReference mDatabase4;
+    private DatabaseReference mDatabase22;
     private EditText PName;
     private EditText PpriceTEXT;
     private EditText PdescTEXT;
@@ -77,6 +72,7 @@ public class EditProdAdmin extends Fragment {
     private  ImageUploadInfo ob;//-----------()---------------
     private ImageUploadInfo ob2;
     private String TempImageName;
+    private String titel;
 
     //private ImageView Pimage;
 
@@ -92,30 +88,20 @@ public class EditProdAdmin extends Fragment {
     // Folder path for Firebase Storage.
     private String Storage_Path = "Products Images";
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         titel = getArguments().getString("pro");
-        return inflater.inflate(R.layout.edit_prod_admin, container,false);
+        return inflater.inflate(R.layout.activity_edit_prodect_info_n, container,false);
     }
-
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Edit prodect page");
 
         //////////////////
-        //  Spinner
-        PName=(EditText)view.findViewById(R.id.PName);
-        PpriceTEXT=(EditText) view.findViewById(R.id.Pprice);
-        PdescTEXT=(EditText) view.findViewById(R.id.Pdesc);
-        Pcat = (Spinner) view.findViewById(R.id.spinner);
-        Upload_image = (Button) view.findViewById(R.id.Pimage);
-        imageView=(ImageView) view.findViewById(R.id.imageView5);
-        /////////////////
 
+        // Start Spinner code
 
         categories = new ArrayList<String>();
         mDatabase2 = FirebaseDatabase.getInstance().getReference().child("CATDB");
@@ -129,23 +115,26 @@ public class EditProdAdmin extends Fragment {
                     arrayadap = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
                     Pcat = (Spinner) view.findViewById(R.id.spinner);
                     Pcat.setAdapter(arrayadap);
-
                 }
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
 
         mDatabase2.addListenerForSingleValueEvent(eventListener);
         // End Spinner code
-        ///////////////////
         //retreve from firebase
+        //  Spinner
+        PName=(EditText)view.findViewById(R.id.PName);
+        PpriceTEXT=(EditText) view.findViewById(R.id.Pprice);
+        PdescTEXT=(EditText) view.findViewById(R.id.Pdesc);
+        Pcat = (Spinner) view.findViewById(R.id.spinner);
+        Upload_image = (Button) view.findViewById(R.id.Pimage);
+        imageView=(ImageView) view.findViewById(R.id.imageView5);
 
 
-        mDatabase3 = FirebaseDatabase.getInstance().getReference().child("PRDB").child("test1");//-------_()---------
+        mDatabase3 = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);//-------_()---------
+        mDatabase22=FirebaseDatabase.getInstance().getReference().child("PRDB");//---------()---
             /* try{
             ValueEventListener EventListener = new ValueEventListener() {
 
@@ -169,7 +158,7 @@ public class EditProdAdmin extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         try{
             mDatabase1 = FirebaseDatabase.getInstance().getReference();
-            ref =  mDatabase1.child("PRDB").child("test1");////////////////change accroding to prodect page
+            ref =  mDatabase1.child("PRDB").child(titel);////////////////change accroding to prodect page
 
 
             ValueEventListener EventListener2 = new ValueEventListener() {
@@ -190,7 +179,7 @@ public class EditProdAdmin extends Fragment {
                         //Upload_image.setPressed(true);
                         //if(ob.getImageName()!=null)
                         PName.setText(ob.getImageName());
-                    }catch (Exception e){Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();}
+                    }catch (Exception e){Toast.makeText(getActivity(),"line178",Toast.LENGTH_LONG).show();}
 
                 }
                 @Override
@@ -198,7 +187,7 @@ public class EditProdAdmin extends Fragment {
             };
             ref.addListenerForSingleValueEvent(EventListener2);
         }catch (Exception e){
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "lin186", Toast.LENGTH_LONG).show();
         }
 
         ////////////////////
@@ -210,48 +199,52 @@ public class EditProdAdmin extends Fragment {
         progressDialog = new ProgressDialog(getActivity());
         // Adding click listener to Choose image button.
         try{
-        Upload_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            Upload_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                Intent intent = new Intent();
+                    Intent intent = new Intent();
 
-                // Setting intent type as image to select image from phone storage.
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Please Select Image"), Image_Request_Code);
-            }
-        });}catch (Exception e){
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    // Setting intent type as image to select image from phone storage.
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Please Select Image"), Image_Request_Code);
+                }
+            });}catch (Exception e){
+            Toast.makeText(getActivity(), "line210", Toast.LENGTH_LONG).show();
         }
         /////////////////////
 
 
 
         //to create listner, update info
-       try {
+        try {
             view.findViewById(R.id.AddPB).setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   EditProdectInfo();
-               }
-           });
-       }catch (Exception e){
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-    }
-try {
-           view.findViewById(R.id.CanclePB).setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            startActivity(new Intent(getActivity(), prodectpageAdmin.class));
-            /////////////----------()==============change from AdminHome2
+                @Override
+                public void onClick(View view) {
+                    EditProdectInfo();
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
-    });
-}catch (Exception e){
-        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-    }
+        /*
+        try {
+            view.findViewById(R.id.CanclePB).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(), prodectpageAdmin.class));
+                    /////////////----------()==============change from AdminHome2
+                }
+            });
+
+        }catch (Exception e){
+            Toast.makeText(getActivity(), "line237", Toast.LENGTH_LONG).show();
+        }*/
 
     }//oncreat
+
+
 
     //retrev sppiner by value/////////////////////
     private int getIndex(Spinner pcat, String pcat1) {
@@ -274,6 +267,8 @@ for(i=0; i < adapter.getCount(); i++) {
     break;
   }
 }*/
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -347,7 +342,7 @@ for(i=0; i < adapter.getCount(); i++) {
             //databaseReference.child(PName.getText().toString()).setValue(ob);
             mDatabase3.removeValue();
             //mDatabase4 =mDatabase3.push();
-            mDatabase3.setValue(ob);
+            mDatabase22.child(TempImageName).setValue(ob);
             //ob=ob2;
             //ref.setValue(ob);
             if (TextUtils.isEmpty(PName.getText().toString().trim()))
@@ -408,7 +403,7 @@ for(i=0; i < adapter.getCount(); i++) {
                                     //databaseReference.child(PName.getText().toString()).setValue(ob);
                                     mDatabase3.removeValue();
                                     //mDatabase4 =mDatabase3.push();
-                                    mDatabase3.setValue(ob);
+                                    mDatabase22.child(TempImageName).setValue(ob);
                                     //ob=ob2;
                                     //ref.setValue(ob);
                                 }

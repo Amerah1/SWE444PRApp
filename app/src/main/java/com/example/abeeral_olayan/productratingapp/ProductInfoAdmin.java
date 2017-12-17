@@ -1,11 +1,13 @@
 package com.example.abeeral_olayan.productratingapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,24 +110,8 @@ public class ProductInfoAdmin extends Fragment {
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-                DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
-                db.removeValue();
-
-                    Toast.makeText(getActivity(), "product deleted Successfully", Toast.LENGTH_LONG).show();
-
-
-
-                DatabaseReference db1 = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
-                db1.removeValue();
-
-                    Toast.makeText(getActivity(), "comments deleted Successfully", Toast.LENGTH_LONG).show();
-
-                Fragment fr = new ListCategories();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-
-                ft.replace(R.id.content_frame, fr);
-                ft.commit();
+                AlertDialog diaBox = AskOption();
+                diaBox.show();
 
             } });
 
@@ -143,5 +129,47 @@ public class ProductInfoAdmin extends Fragment {
 
             }
         });
+    }
+
+    private AlertDialog AskOption()
+    {
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(getActivity())
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete")
+                //.setIcon(R.drawable.delete)
+
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
+                        db.removeValue();
+
+                        DatabaseReference db1 = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
+                        db1.removeValue();
+
+                        Fragment fr = new ListCategories();
+                        FragmentManager fm = getFragmentManager();
+                        FragmentTransaction ft = fm.beginTransaction();
+
+                        ft.replace(R.id.content_frame, fr);
+                        ft.commit();
+                    }
+
+                })
+
+
+
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
     }
 }
