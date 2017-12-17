@@ -10,6 +10,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -46,10 +49,6 @@ import java.util.ArrayList;
 import static android.app.Activity.RESULT_OK;
 
 
-/**
- * Created by abeeral-olayan on 12/14/17.
- */
-
 public class EditProdAdmin extends Fragment {
 
 
@@ -59,8 +58,8 @@ public class EditProdAdmin extends Fragment {
     private DatabaseReference mDatabase3;
 
     private DatabaseReference mDatabase4;
-    private DatabaseReference mDatabase22;
-    private EditText PName;
+    //private DatabaseReference mDatabase22;
+    private TextView PName;
     private EditText PpriceTEXT;
     private EditText PdescTEXT;
     private Spinner Pcat;
@@ -97,7 +96,7 @@ public class EditProdAdmin extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Edit prodect page");
+        getActivity().setTitle("Edit Product page");
 
         //////////////////
 
@@ -125,7 +124,7 @@ public class EditProdAdmin extends Fragment {
         // End Spinner code
         //retreve from firebase
         //  Spinner
-        PName=(EditText)view.findViewById(R.id.PName);
+        PName=(TextView)view.findViewById(R.id.PName);
         PpriceTEXT=(EditText) view.findViewById(R.id.Pprice);
         PdescTEXT=(EditText) view.findViewById(R.id.Pdesc);
         Pcat = (Spinner) view.findViewById(R.id.spinner);
@@ -134,7 +133,7 @@ public class EditProdAdmin extends Fragment {
 
 
         mDatabase3 = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);//-------_()---------
-        mDatabase22=FirebaseDatabase.getInstance().getReference().child("PRDB");//---------()---
+        //mDatabase22=FirebaseDatabase.getInstance().getReference().child("PRDB");//---------()---
             /* try{
             ValueEventListener EventListener = new ValueEventListener() {
 
@@ -223,24 +222,35 @@ public class EditProdAdmin extends Fragment {
                 @Override
                 public void onClick(View view) {
                     EditProdectInfo();
+                    Fragment fr = new ListCategories();
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+
+                    ft.replace(R.id.content_frame, fr);
+                    ft.commit();
                 }
             });
         }catch (Exception e){
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        /*
+
         try {
             view.findViewById(R.id.CanclePB).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), prodectpageAdmin.class));
-                    /////////////----------()==============change from AdminHome2
+
+                    Fragment fr = new ListCategories();
+                    FragmentManager fm = getFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+
+                    ft.replace(R.id.content_frame, fr);
+                    ft.commit();
                 }
             });
 
         }catch (Exception e){
             Toast.makeText(getActivity(), "line237", Toast.LENGTH_LONG).show();
-        }*/
+        }
 
     }//oncreat
 
@@ -342,11 +352,12 @@ for(i=0; i < adapter.getCount(); i++) {
             //databaseReference.child(PName.getText().toString()).setValue(ob);
             mDatabase3.removeValue();
             //mDatabase4 =mDatabase3.push();
-            mDatabase22.child(TempImageName).setValue(ob);
+            mDatabase3.setValue(ob);
+            // mDatabase22.child(TempImageName).setValue(ob);
             //ob=ob2;
             //ref.setValue(ob);
-            if (TextUtils.isEmpty(PName.getText().toString().trim()))
-                Toast.makeText(getActivity(), "Please set a name for the product.", Toast.LENGTH_LONG).show();
+           // if (TextUtils.isEmpty(PName.getText().toString().trim()))
+               // Toast.makeText(getActivity(), "Please set a name for the product.", Toast.LENGTH_LONG).show();
         }else {
             try {
                 // Checking whether FilePathUri Is empty or not.
@@ -403,7 +414,8 @@ for(i=0; i < adapter.getCount(); i++) {
                                     //databaseReference.child(PName.getText().toString()).setValue(ob);
                                     mDatabase3.removeValue();
                                     //mDatabase4 =mDatabase3.push();
-                                    mDatabase22.child(TempImageName).setValue(ob);
+                                    mDatabase3.setValue(ob);
+                                    //mDatabase22.child(TempImageName).setValue(ob);
                                     //ob=ob2;
                                     //ref.setValue(ob);
                                 }
@@ -439,8 +451,8 @@ for(i=0; i < adapter.getCount(); i++) {
                 //Toast.makeText(this, "Please set a name and select image for the product.", Toast.LENGTH_LONG).show();
 
 
-                if (TextUtils.isEmpty(PName.getText().toString().trim()))
-                    Toast.makeText(getActivity(), "Please set a name for the product.", Toast.LENGTH_LONG).show();
+                // if (TextUtils.isEmpty(PName.getText().toString().trim()))
+                //Toast.makeText(getActivity(), "Please you can not change a name for the product.", Toast.LENGTH_LONG).show();
 
                 // if (FilePathUri == null && !TextUtils.isEmpty(PName.getText().toString().trim()))
                 // Toast.makeText(EditProdectInfoN.this, "Please select image for the product.", Toast.LENGTH_LONG).show();
@@ -456,3 +468,6 @@ for(i=0; i < adapter.getCount(); i++) {
 
 
 }
+
+
+

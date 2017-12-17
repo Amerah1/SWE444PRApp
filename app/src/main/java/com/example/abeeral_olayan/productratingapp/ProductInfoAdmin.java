@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,11 +35,15 @@ import java.util.ArrayList;
 public class ProductInfoAdmin extends Fragment {
     String titel;
     private DatabaseReference databaseReference,DatabaseListComent;
-    private TextView tname,tprice,tdescription,tcategory;
+    private DatabaseReference db,db1;
+    private DatabaseReference mDatabase2;
+    private TextView tname,tprice,tdescription;
+    private Spinner tcategory;
     private Button edit,delete;
     private ImageView image;
     private ListView listComments;
     private ArrayList<String> ListComment;
+    private ArrayList<String> categories;
 
 
     @Nullable
@@ -49,19 +54,48 @@ public class ProductInfoAdmin extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle(titel);
 
-
-        tname=(TextView)view.findViewById(R.id.name);
-        tdescription=(TextView)view.findViewById(R.id.desc);
+        db = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
+         db1 = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
+        tname=(TextView)view.findViewById(R.id.PName);
+        tdescription=(TextView)view.findViewById(R.id.pdesc);
+        tprice=(TextView)view.findViewById(R.id.pprice);
+        tcategory =(Spinner)view.findViewById(R.id.spinner);
         image=(ImageView) view.findViewById(R.id.PImag);
+
         edit=(Button) view.findViewById(R.id.editinf);
         delete=(Button) view.findViewById(R.id.deletP);
-        listComments= (ListView) view.findViewById(R.id.listCommentA);
 
-        ListComment = new ArrayList<String>();
+      //  listComments= (ListView) view.findViewById(R.id.listCommentA);  *********_______() make it as comment becous xml in my vervoin
+
+       // ListComment = new ArrayList<String>(); *********_______() make it as comment becous xml in my vervoin
+
+        // Start Spinner code
+
+        categories = new ArrayList<String>();
+        mDatabase2 = FirebaseDatabase.getInstance().getReference().child("CATDB");
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren() ) {
+                    ImageUpload_Category category = ds.getValue(ImageUpload_Category.class);
+                    categories.add(category.getImageName());
+                    final ArrayAdapter<String> arrayadap;
+                    arrayadap = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
+                    tcategory = (Spinner) view.findViewById(R.id.spinner);
+                    tcategory.setAdapter(arrayadap);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+
+        mDatabase2.addListenerForSingleValueEvent(eventListener);
+        // End Spinner code
+        ///////
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
         ValueEventListener EventListener = new ValueEventListener() {
@@ -71,7 +105,8 @@ public class ProductInfoAdmin extends Fragment {
                 tname.setText(product.getImageName());
                 tdescription.setText(product.getPdesc());
                 Picasso.with(getActivity()).load(product.getImageURL()).into(image);
-
+                tprice.setText(product.getPprice());
+                tcategory.setSelection(getIndex(tcategory, product.getPcat()));
             }
 
             @Override
@@ -80,7 +115,7 @@ public class ProductInfoAdmin extends Fragment {
         };
         databaseReference.addListenerForSingleValueEvent(EventListener);
 
-
+/*
         DatabaseListComent = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
         final ValueEventListener eventListener3 = new ValueEventListener() {
             @Override
@@ -105,20 +140,41 @@ public class ProductInfoAdmin extends Fragment {
         };
         DatabaseListComent.addListenerForSingleValueEvent(eventListener3);
 
-
+*/
 
 
         delete.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
+
+
+
                 AlertDialog diaBox = AskOption();
                 diaBox.show();
+/*
+                DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
+                db.removeValue();
+
+                    Toast.makeText(getActivity(), "product deleted Successfully", Toast.LENGTH_LONG).show();
+
+
+
+                DatabaseReference db1 = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
+                db1.removeValue();
+
+                    Toast.makeText(getActivity(), "comments deleted Successfully", Toast.LENGTH_LONG).show();
+*/
+
 
             } });
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Fragment fr = new EditProdAdmin();
+
+
+
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 Bundle args = new Bundle();
@@ -130,6 +186,10 @@ public class ProductInfoAdmin extends Fragment {
             }
         });
     }
+
+
+
+
 
     private AlertDialog AskOption()
     {
@@ -143,6 +203,7 @@ public class ProductInfoAdmin extends Fragment {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //your deleting code
+
                         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
                         db.removeValue();
 
@@ -155,6 +216,13 @@ public class ProductInfoAdmin extends Fragment {
 
                         ft.replace(R.id.content_frame, fr);
                         ft.commit();
+
+                        db.removeValue();
+                        db1.removeValue();
+                        Toast.makeText(getActivity(), "Product Deleted Successfully ", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getActivity(), AdminHome2.class));//---------------()++++++++++++++++++
+                        dialog.dismiss();
+
                     }
 
                 })
@@ -172,4 +240,19 @@ public class ProductInfoAdmin extends Fragment {
         return myQuittingDialogBox;
 
     }
+
+
+    private int getIndex(Spinner pcat, String pcat1) {
+        int index = 0;
+
+        for (int i=0;i<pcat.getCount();i++){
+            if (pcat.getItemAtPosition(i).equals(pcat1)){
+                index = i;
+            }
+        }
+        return index;
+    }
+
+
+
 }

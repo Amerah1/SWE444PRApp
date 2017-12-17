@@ -164,7 +164,8 @@ public class Suggest_products extends AppCompatActivity {
 
                 }
             });
-            homep.setOnClickListener(new View.OnClickListener() {
+            /*
+            homep.setOnClickListener(new View.OnClickListener() {////////////////////////+++++++++++++++++++++++++++????????????+++++++++++
                 @Override
                 public void onClick(View view) {
 
@@ -172,6 +173,7 @@ public class Suggest_products extends AppCompatActivity {
 
                 }
             });
+            */
             buttonLogout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

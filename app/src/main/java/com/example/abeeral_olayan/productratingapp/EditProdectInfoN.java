@@ -8,10 +8,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -39,13 +43,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 
-public class EditProdectInfoN extends AppCompatActivity {
+
+public class EditProdectInfoN extends Fragment {
+
+
     public  static final String Database_Path="All_Image_Uploads_Database";//-----------()____________________
     private DatabaseReference mDatabase2;
     private DatabaseReference mDatabase1;
     private DatabaseReference mDatabase3;
+
     private DatabaseReference mDatabase4;
+    private DatabaseReference mDatabase22;
     private EditText PName;
     private EditText PpriceTEXT;
     private EditText PdescTEXT;
@@ -58,6 +68,7 @@ public class EditProdectInfoN extends AppCompatActivity {
     private  ImageUploadInfo ob;//-----------()---------------
     private ImageUploadInfo ob2;
     private String TempImageName;
+    private String titel;
 
     //private ImageView Pimage;
 
@@ -73,24 +84,20 @@ public class EditProdectInfoN extends AppCompatActivity {
     // Folder path for Firebase Storage.
     private String Storage_Path = "Products Images";
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //final String productName = getIntent().getExtras().getString("productName");////////////////////////
-
-        setContentView(R.layout.activity_edit_prodect_info_n);
-        setTitle("Edit Product");
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        titel = getArguments().getString("pro");
+        return inflater.inflate(R.layout.activity_edit_prodect_info_n, container,false);
+    }
+    @Override
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Edit prodect page");
 
         //////////////////
-        //  Spinner
-        PName=(EditText)findViewById(R.id.PName);
-        PpriceTEXT=(EditText) findViewById(R.id.Pprice);
-        PdescTEXT=(EditText) findViewById(R.id.Pdesc);
-        Pcat = (Spinner) findViewById(R.id.spinner);
-        Upload_image = (Button) findViewById(R.id.Pimage);
-        imageView=(ImageView) findViewById(R.id.imageView5);
-        /////////////////
 
+        // Start Spinner code
 
         categories = new ArrayList<String>();
         mDatabase2 = FirebaseDatabase.getInstance().getReference().child("CATDB");
@@ -101,26 +108,29 @@ public class EditProdectInfoN extends AppCompatActivity {
                     ImageUpload_Category category = ds.getValue(ImageUpload_Category.class);
                     categories.add(category.getImageName());
                     final ArrayAdapter<String> arrayadap;
-                    arrayadap = new ArrayAdapter<String>(EditProdectInfoN.this, android.R.layout.simple_spinner_item, categories);
-                    Pcat = (Spinner) findViewById(R.id.spinner);
+                    arrayadap = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, categories);
+                    Pcat = (Spinner) view.findViewById(R.id.spinner);
                     Pcat.setAdapter(arrayadap);
-
                 }
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
 
         mDatabase2.addListenerForSingleValueEvent(eventListener);
         // End Spinner code
-        ///////////////////
         //retreve from firebase
+        //  Spinner
+        PName=(EditText)view.findViewById(R.id.PName);
+        PpriceTEXT=(EditText) view.findViewById(R.id.Pprice);
+        PdescTEXT=(EditText) view.findViewById(R.id.Pdesc);
+        Pcat = (Spinner) view.findViewById(R.id.spinner);
+        Upload_image = (Button) view.findViewById(R.id.Pimage);
+        imageView=(ImageView) view.findViewById(R.id.imageView5);
 
 
-        mDatabase3 = FirebaseDatabase.getInstance().getReference().child("PRDB").child("pp");//-------_()---------
+        mDatabase3 = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);//-------_()---------
+        mDatabase22=FirebaseDatabase.getInstance().getReference().child("PRDB");//---------()---
             /* try{
             ValueEventListener EventListener = new ValueEventListener() {
 
@@ -144,7 +154,7 @@ public class EditProdectInfoN extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         try{
             mDatabase1 = FirebaseDatabase.getInstance().getReference();
-            ref =  mDatabase1.child("PRDB").child("pp");////////////////change accroding to prodect page
+            ref =  mDatabase1.child("PRDB").child(titel);////////////////change accroding to prodect page
 
 
             ValueEventListener EventListener2 = new ValueEventListener() {
@@ -159,13 +169,13 @@ public class EditProdectInfoN extends AppCompatActivity {
                         //if(ob.getPcat()!=null)
                         Pcat.setSelection(getIndex(Pcat, ob.getPcat()));
                         //if(ob.getImageURL()!=null)__________________()-----------------------
-                        Picasso.with(getApplicationContext()).load(ob.getImageURL()).placeholder(R.mipmap.ic_launcher).into(imageView);// add now----------
+                        Picasso.with(getContext()).load(ob.getImageURL()).placeholder(R.mipmap.ic_launcher).into(imageView);// add now----------
                         //if(ob.getImageURL()!=null)
                         //FilePathUri= Uri.parse(ob.getImageURL());
                         //Upload_image.setPressed(true);
                         //if(ob.getImageName()!=null)
                         PName.setText(ob.getImageName());
-                    }catch (Exception e){Toast.makeText(EditProdectInfoN.this,e.getMessage(),Toast.LENGTH_LONG).show();}
+                    }catch (Exception e){Toast.makeText(getActivity(),"line178",Toast.LENGTH_LONG).show();}
 
                 }
                 @Override
@@ -173,7 +183,7 @@ public class EditProdectInfoN extends AppCompatActivity {
             };
             ref.addListenerForSingleValueEvent(EventListener2);
         }catch (Exception e){
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "lin186", Toast.LENGTH_LONG).show();
         }
 
         ////////////////////
@@ -182,40 +192,55 @@ public class EditProdectInfoN extends AppCompatActivity {
         //databaseReference = FirebaseDatabase.getInstance().getReference().child("PRDB").child("PInfo");
 
         //////////////
-        progressDialog = new ProgressDialog(EditProdectInfoN.this);
+        progressDialog = new ProgressDialog(getActivity());
         // Adding click listener to Choose image button.
-        Upload_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        try{
+            Upload_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                Intent intent = new Intent();
+                    Intent intent = new Intent();
 
-                // Setting intent type as image to select image from phone storage.
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Please Select Image"), Image_Request_Code);
-            }
-        });
+                    // Setting intent type as image to select image from phone storage.
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Please Select Image"), Image_Request_Code);
+                }
+            });}catch (Exception e){
+            Toast.makeText(getActivity(), "line210", Toast.LENGTH_LONG).show();
+        }
         /////////////////////
 
 
 
         //to create listner, update info
-        findViewById(R.id.AddPB).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EditProdectInfo();
-            }
-        });
-        findViewById(R.id.CanclePB).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EditProdectInfoN.this, prodectpageAdmin.class));
-                /////////////----------()==============change from AdminHome2
-            }
-        });
+        try {
+            view.findViewById(R.id.AddPB).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    EditProdectInfo();
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        /*
+        try {
+            view.findViewById(R.id.CanclePB).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(getActivity(), prodectpageAdmin.class));
+                    /////////////----------()==============change from AdminHome2
+                }
+            });
+
+        }catch (Exception e){
+            Toast.makeText(getActivity(), "line237", Toast.LENGTH_LONG).show();
+        }*/
 
     }//oncreat
+
+
 
     //retrev sppiner by value/////////////////////
     private int getIndex(Spinner pcat, String pcat1) {
@@ -238,6 +263,8 @@ for(i=0; i < adapter.getCount(); i++) {
     break;
   }
 }*/
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -249,7 +276,7 @@ for(i=0; i < adapter.getCount(); i++) {
 
             try {
                 // Getting selected image into Bitmap.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(EditProdectInfoN.this.getContentResolver(), FilePathUri);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), FilePathUri);
 
                 //Setting up bitmap selected image into ImageView.------------()___________--------------
                 imageView.setImageBitmap(bitmap);
@@ -265,7 +292,7 @@ for(i=0; i < adapter.getCount(); i++) {
     // Creating Method to get the selected image file Extension from File Path URI.
     public String GetFileExtension(Uri uri) {
 
-        ContentResolver contentResolver = EditProdectInfoN.this.getContentResolver();
+        ContentResolver contentResolver = getActivity().getContentResolver();
 
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
 
@@ -277,7 +304,7 @@ for(i=0; i < adapter.getCount(); i++) {
     // Creating UploadImageFileToFirebaseStorage method to upload image on storage.
     public void EditProdectInfo() {
         if (FilePathUri == null && !TextUtils.isEmpty(PName.getText().toString().trim())) {
-            //progressDialog.setTitle("Product is Editing...");
+            // progressDialog.setTitle("Product is Editing...");
             // Getting image name from EditText and store into string variable.
             TempImageName = PName.getText().toString().trim();
             String Pdesc1 = PdescTEXT.getText().toString().trim();
@@ -285,12 +312,6 @@ for(i=0; i < adapter.getCount(); i++) {
             String Pcat1 = Pcat.getSelectedItem().toString().trim();
 
 
-            // Hiding the progressDialog after done uploading.
-            progressDialog.dismiss();
-
-            // Showing toast message after done uploading.
-            ///////////////////
-            Toast.makeText(EditProdectInfoN.this, "Product Editeing Successfully ", Toast.LENGTH_LONG).show();
 
             //@SuppressWarnings("VisibleForTests")///////////////////8*******************
             ////ImageUploadInfo imageUploadInfo = new ImageUploadInfo(TempImageName, taskSnapshot.getDownloadUrl().toString() ,Pdesc1,Pprice1,Pcat1,"","");
@@ -302,6 +323,12 @@ for(i=0; i < adapter.getCount(); i++) {
             ob.setPdesc(Pdesc1);
             ob.setPprice(Pprice1);
 
+            // Hiding the progressDialog after done uploading.
+            //  progressDialog.dismiss();
+
+            // Showing toast message after done uploading.
+            ///////////////////
+            Toast.makeText(getActivity(), "Product Editeing Successfully ", Toast.LENGTH_LONG).show();
 
             //ob2=ob;
             // Getting image upload ID.
@@ -311,21 +338,21 @@ for(i=0; i < adapter.getCount(); i++) {
             //databaseReference.child(PName.getText().toString()).setValue(ob);
             mDatabase3.removeValue();
             //mDatabase4 =mDatabase3.push();
-            mDatabase3.setValue(ob);
+            mDatabase22.child(TempImageName).setValue(ob);
             //ob=ob2;
             //ref.setValue(ob);
             if (TextUtils.isEmpty(PName.getText().toString().trim()))
-                Toast.makeText(EditProdectInfoN.this, "Please set a name for the product.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Please set a name for the product.", Toast.LENGTH_LONG).show();
         }else {
             try {
                 // Checking whether FilePathUri Is empty or not.
                 if (FilePathUri != null && !TextUtils.isEmpty(PName.getText().toString().trim())) {
 
                     // Setting progressDialog Title.
-                    //progressDialog.setTitle("Product is Editing...");
+                    // progressDialog.setTitle("Product is Editing...");
 
                     // Showing progressDialog.
-                    progressDialog.show();
+                    // progressDialog.show();
                     // Creating second StorageReference.
                     StorageReference storageReference2nd = storageReference.child(Storage_Path + System.currentTimeMillis() + "." + GetFileExtension(FilePathUri));
 
@@ -347,11 +374,11 @@ for(i=0; i < adapter.getCount(); i++) {
 
 
                                     // Hiding the progressDialog after done uploading.
-                                    progressDialog.dismiss();
+                                    // progressDialog.dismiss();
 
                                     // Showing toast message after done uploading.
                                     ///////////////////
-                                    Toast.makeText(EditProdectInfoN.this, "Product Editeing Successfully ", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "Product Editeing Successfully ", Toast.LENGTH_LONG).show();
 
                                     //@SuppressWarnings("VisibleForTests")///////////////////8*******************
                                     ////ImageUploadInfo imageUploadInfo = new ImageUploadInfo(TempImageName, taskSnapshot.getDownloadUrl().toString() ,Pdesc1,Pprice1,Pcat1,"","");
@@ -372,7 +399,7 @@ for(i=0; i < adapter.getCount(); i++) {
                                     //databaseReference.child(PName.getText().toString()).setValue(ob);
                                     mDatabase3.removeValue();
                                     //mDatabase4 =mDatabase3.push();
-                                    mDatabase3.setValue(ob);
+                                    mDatabase22.child(TempImageName).setValue(ob);
                                     //ob=ob2;
                                     //ref.setValue(ob);
                                 }
@@ -387,7 +414,7 @@ for(i=0; i < adapter.getCount(); i++) {
 
                                     // Showing exception erro message.
                                     /////////////////////////////
-                                    Toast.makeText(EditProdectInfoN.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             })
 
@@ -409,13 +436,13 @@ for(i=0; i < adapter.getCount(); i++) {
 
 
                 if (TextUtils.isEmpty(PName.getText().toString().trim()))
-                    Toast.makeText(EditProdectInfoN.this, "Please set a name for the product.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Please set a name for the product.", Toast.LENGTH_LONG).show();
 
                 // if (FilePathUri == null && !TextUtils.isEmpty(PName.getText().toString().trim()))
                 // Toast.makeText(EditProdectInfoN.this, "Please select image for the product.", Toast.LENGTH_LONG).show();
 
             } catch (Exception e) {
-                Toast.makeText(EditProdectInfoN.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }//else
 
