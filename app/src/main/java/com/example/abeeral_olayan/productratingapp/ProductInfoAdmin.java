@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,7 +45,7 @@ public class ProductInfoAdmin extends Fragment {
     private ListView listComments;
     private ArrayList<String> ListComment;
     private ArrayList<String> categories;
-
+    private ValueEventListener eventListener3;
 
     @Nullable
     @Override
@@ -59,7 +60,7 @@ public class ProductInfoAdmin extends Fragment {
         getActivity().setTitle(titel);
 
         db = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
-         db1 = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
+        db1 = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
         tname=(TextView)view.findViewById(R.id.PName);
         tdescription=(TextView)view.findViewById(R.id.pdesc);
         tprice=(TextView)view.findViewById(R.id.pprice);
@@ -69,9 +70,9 @@ public class ProductInfoAdmin extends Fragment {
         edit=(Button) view.findViewById(R.id.editinf);
         delete=(Button) view.findViewById(R.id.deletP);
 
-       listComments= (ListView) view.findViewById(R.id.listCommentA);  //*********_______() make it as comment becous xml in my vervoin
+        listComments= (ListView) view.findViewById(R.id.listCommentA);  //*********_______() make it as comment becous xml in my vervoin
 
-       ListComment = new ArrayList<String>();// *********_______() make it as comment becous xml in my vervoin
+        ListComment = new ArrayList<String>();// *********_______() make it as comment becous xml in my vervoin
 
         // Start Spinner code
 
@@ -108,16 +109,13 @@ public class ProductInfoAdmin extends Fragment {
                 tprice.setText(product.getPprice());
                 tcategory.setSelection(getIndex(tcategory, product.getPcat()));
             }
-
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         };
         databaseReference.addListenerForSingleValueEvent(EventListener);
 
-
         DatabaseListComent = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
-        final ValueEventListener eventListener3 = new ValueEventListener() {
+        eventListener3 = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildren()==null){
@@ -131,7 +129,8 @@ public class ProductInfoAdmin extends Fragment {
                     final ArrayAdapter<String> array;
                     array = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, ListComment);
                     listComments.setAdapter(array);
-                }} catch (Exception e){
+                }
+                } catch (Exception e){
                     Toast.makeText(getActivity().getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
@@ -139,42 +138,16 @@ public class ProductInfoAdmin extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         };
         DatabaseListComent.addListenerForSingleValueEvent(eventListener3);
-
-
-
-
+        //delete button action
         delete.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
-
-
-
                 AlertDialog diaBox = AskOption();
                 diaBox.show();
-/*
-                DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
-                db.removeValue();
-
-                    Toast.makeText(getActivity(), "product deleted Successfully", Toast.LENGTH_LONG).show();
-
-
-
-                DatabaseReference db1 = FirebaseDatabase.getInstance().getReference().child("Comments").child(titel);
-                db1.removeValue();
-
-                    Toast.makeText(getActivity(), "comments deleted Successfully", Toast.LENGTH_LONG).show();
-*/
-
-
             } });
-
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Fragment fr = new EditProdAdmin();
-
-
-
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 Bundle args = new Bundle();
@@ -182,14 +155,47 @@ public class ProductInfoAdmin extends Fragment {
                 fr.setArguments(args);
                 ft.replace(R.id.content_frame, fr);
                 ft.commit();
-
+            }
+        });
+// delete comment
+        listComments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog diaBox = AskToDeleteComment(i);
+                diaBox.show();
             }
         });
     }
 
+    private AlertDialog AskToDeleteComment(final int i){
+        AlertDialog myQuittingDialogBox =new AlertDialog.Builder(getActivity())
+                //set message, title, and icon
+                .setTitle("Delete")
+                .setMessage("Do you want to Delete "+ListComment.get(i)+" comment?")
+                //.setIcon(R.drawable.delete)
 
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //your deleting code
+                        ListComment.remove(i);
+                        FirebaseDatabase.getInstance().getReference().child("Comments").child(titel).setValue(ListComment);
+                        ListComment.clear();
+                        DatabaseListComent.addListenerForSingleValueEvent(eventListener3);
 
+                        Toast.makeText(getActivity(), "Comment Deleted Successfully ", Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
+                    }
+
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+    }
 
     private AlertDialog AskOption()
     {
@@ -203,7 +209,6 @@ public class ProductInfoAdmin extends Fragment {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
                         //your deleting code
-
                         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("PRDB").child(titel);
                         db.removeValue();
 
@@ -222,37 +227,24 @@ public class ProductInfoAdmin extends Fragment {
                         Toast.makeText(getActivity(), "Product Deleted Successfully ", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getActivity(), AdminHome2.class));//---------------()++++++++++++++++++
                         dialog.dismiss();
-
                     }
 
                 })
-
-
-
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-
                         dialog.dismiss();
-
                     }
                 })
                 .create();
         return myQuittingDialogBox;
-
     }
-
 
     private int getIndex(Spinner pcat, String pcat1) {
         int index = 0;
-
-        for (int i=0;i<pcat.getCount();i++){
-            if (pcat.getItemAtPosition(i).equals(pcat1)){
+        for (int i=0;i<pcat.getCount();i++)
+            if (pcat.getItemAtPosition(i).equals(pcat1))
                 index = i;
-            }
-        }
         return index;
     }
-
-
 
 }

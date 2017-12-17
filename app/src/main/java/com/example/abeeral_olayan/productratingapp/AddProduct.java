@@ -214,6 +214,7 @@ public class AddProduct extends Fragment {
 
                             // Adding image upload id s child element into databaseReference.
                             databaseReference.child(PName.getText().toString()).setValue(imageUploadInfo);
+                            startActivity(new Intent(getActivity(), AdminHome2.class));
                         }
                     })
                     // If something goes wrong .

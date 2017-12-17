@@ -1,5 +1,6 @@
 package com.example.abeeral_olayan.productratingapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
     private TextView tname,tprice,tdescription,ratings;
     private EditText editComment;
     private ListView listComments;
+    private ProgressDialog progressDialog;
 
     private DatabaseReference databaseReference;
     private DatabaseReference databaseReference2;
@@ -52,16 +54,13 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
     private int numOfRating=0;
     private double rating=0.0;
     private int numOfComments=0;
+    private String productName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*this in the previoce page
-        Intent intent = new Intent(this, ProductPage.class);
-            intent.putExtra("productName", editTextName.getText().toString().trim());
-            startActivity(intent);
-        */
-        final String productName = getIntent().getExtras().getString("productName");
+
+        productName = getIntent().getExtras().getString("productName");
         setContentView(R.layout.activity_product_page);
 
         tname=(TextView)findViewById(R.id.textname);
@@ -138,38 +137,19 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
             DatabaseListComent.addListenerForSingleValueEvent(eventListener3);
 
             // add comment //////////////////////////////////
-            editComment.setOnKeyListener(new View.OnKeyListener() {
+            /*editComment.setOnKeyListener(new View.OnKeyListener() {
                 @Override
                 public boolean onKey(View v, int i, KeyEvent Event) {
                     // If the event is a key-down event on the "enter" button
                     if ((Event.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
                         // Perform action on key
-                        databaseReference2= FirebaseDatabase.getInstance().getReference().child("Comments").child(productName);
-                        ValueEventListener EventListener1 = new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                numOfComments= (int) dataSnapshot.getChildrenCount();
-                                if(!editComment.getText().toString().equals(null)) {
-                                    FirebaseDatabase.getInstance().getReference().child("Comments").child(productName).child("comment" + (numOfComments + 1)).setValue(editComment.getText().toString());
-                                    Intent intent = new Intent(getApplicationContext(), ProductPage.class);
-                                    intent.putExtra("productName",productName);
-                                    startActivity(intent);
 
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        };
-                        databaseReference2.addListenerForSingleValueEvent(EventListener1);
                         //editComment.setText("");
                         return true;
                     }
                     return false;
                 }
-            });
+            });*/
 
             //list view ///////////////////////////////
 
@@ -194,6 +174,11 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
     }
 
     private void rating() {
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Add reviewing, Please Wait...");
+        progressDialog.show();
+        if(newRate !=0){
         numOfRating++;
         rating = rating + (double) newRate;
         rating = rating / (double) numOfRating;
@@ -204,8 +189,31 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
         Rate.setImageURL(imageURL);
         Rate.setNumOfRating(""+numOfRating);
         Rate.setRating(""+rating);
-        databaseReference.setValue(Rate);
-        startActivity(new Intent(getApplicationContext(), UserHome.class));
+        databaseReference.setValue(Rate);}
+        //add comment
+        databaseReference2= FirebaseDatabase.getInstance().getReference().child("Comments").child(productName);
+        ValueEventListener EventListener1 = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                numOfComments= (int) dataSnapshot.getChildrenCount();
+                if(!editComment.getText().toString().equals("")) {
+                    FirebaseDatabase.getInstance().getReference().child("Comments").child(productName).child("" + (numOfComments + 1)).setValue(editComment.getText().toString());
+                    Intent intent = new Intent(getApplicationContext(), ProductPage.class);
+                    intent.putExtra("productName",productName);
+                    startActivity(intent);
+                    editComment.setText("");
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+
+        };
+        databaseReference2.addListenerForSingleValueEvent(EventListener1);
+
+        progressDialog.dismiss();
+        //startActivity(new Intent(getApplicationContext(), UserHome.class));
 
     }
 }

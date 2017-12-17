@@ -61,9 +61,6 @@ public class AdminHome2 extends AppCompatActivity
     ProgressDialog progressDia;
     List<ImageUpload_Category> listCat = new ArrayList<>();
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,9 +88,6 @@ public class AdminHome2 extends AppCompatActivity
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
 
-
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -103,12 +97,6 @@ public class AdminHome2 extends AppCompatActivity
         final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
-
-        //////////////
-        //num of suggested
-        suggest=new ArrayList<String>();
         data=FirebaseDatabase.getInstance().getReference().child("SPRDB");
         ValueEventListener EventListener = new ValueEventListener() {
             @Override
@@ -129,82 +117,11 @@ public class AdminHome2 extends AppCompatActivity
         data.addListenerForSingleValueEvent(EventListener);
 
 
+    }
 
-
-       ///////
-
-        //start
-       /* category=new ArrayList<String>();
-        Lcat = (ListView) findViewById(R.id.LCategory);
-
-
-        database = FirebaseDatabase.getInstance().getReference().child("CATDB");
-
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                try { for (DataSnapshot ds : dataSnapshot.getChildren() ) {
-                    // ImageUploadInfo sd = ds.getValue(ImageUploadInfo.class);
-                    ImageUpload_Category sd= ds.getValue(ImageUpload_Category.class);
-                    category.add(sd.getImageName());
-                    //suggested.add(sd.getImageName());
-                    final ArrayAdapter<String> array;
-                    array = new ArrayAdapter<String>(AdminHome2.this, android.R.layout.simple_list_item_1, category);
-
-                    Lcat.setAdapter(array);
-                }} catch (Exception e){
-                    Toast.makeText(AdminHome2.this,e.getMessage(),Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-
-        database.addListenerForSingleValueEvent(eventListener);
-
-
-
-        Lcat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(AdminHome2.this,"her",Toast.LENGTH_LONG).show();
-
-
-                String val =(String) parent.getItemAtPosition(position);
-
-
-
-                try{Fragment fragment = new ProductListAdmin();
-                Bundle args = new Bundle();
-                args.putString("CName", val);
-                fragment.setArguments(args);
-               // FragmentManager fragmentManager = getSupportFragmentManager();
-               // FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                //ft.replace(R.id.content_frame, fragment);
-                //ft.commit();
-                }catch (Exception e){Toast.makeText(AdminHome2.this,e.getMessage(),Toast.LENGTH_LONG).show();}
-            }
-        });
-
-
-
-
-
-        /*Fragment fragment1 = new ListCategoriess();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, fragment1);
-        ft.commit();*/
-
-
-
-
-
+    public void notifyProductSuggested(){
+        finish();
+        startActivity(new Intent(getApplicationContext(), AdminHome2.class));
     }
 
     @Override

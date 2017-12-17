@@ -219,6 +219,7 @@ public class AddCategory extends Fragment {
 
                             // Adding image upload id s child element into databaseReference.
                             databaseReference.child(ImageName.getText().toString()).setValue(ImageUpload_Category);
+                            startActivity(new Intent(getActivity(), AdminHome2.class));
                         }
                     })
                     // If something goes wrong .

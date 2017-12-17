@@ -177,7 +177,7 @@ public class Suggest_products extends AppCompatActivity {
             buttonLogout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    firebaseAuth = FirebaseAuth.getInstance();
                     //logging out the user
                     firebaseAuth.signOut();
                     //closing activity
@@ -251,19 +251,18 @@ public class Suggest_products extends AppCompatActivity {
 
                             // Hiding the progressDialog after done uploading.
                             progressDialog.dismiss();
-
-                            // Showing toast message after done uploading.
-                            Toast.makeText(getApplicationContext(), "Product Suggested Successfully ", Toast.LENGTH_LONG).show();
                             try
                             {
                             @SuppressWarnings("VisibleForTests")
                             SuggestProducctInfo SuggestProducctInfo = new SuggestProducctInfo(SPName1, taskSnapshot.getDownloadUrl().toString(), SPdesc1, SPprice1, SPcat1);
-
-                            // Getting image upload ID.
-                            //String SuggestProducctInfo = databaseReference.push().getKey();
-
                             // Adding image upload id s child element into databaseReference.
-                            databaseReference.child(SPName.getText().toString()).setValue(SuggestProducctInfo);}
+                            databaseReference.child(SPName.getText().toString()).setValue(SuggestProducctInfo);
+                                // Showing toast message after done uploading.
+                                Toast.makeText(getApplicationContext(), "Product Suggested Successfully ", Toast.LENGTH_LONG).show();
+                                SPName.setText("");
+                                SPdesc.setText("");
+                                SPprice.setText("");
+                            }
                             catch (Exception e){
                             Toast.makeText(Suggest_products.this, e.getMessage(), Toast.LENGTH_LONG).show();
                         }}
