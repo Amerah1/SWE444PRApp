@@ -222,10 +222,12 @@ public class EditProdAdmin extends Fragment {
                 @Override
                 public void onClick(View view) {
                     EditProdectInfo();
-                    Fragment fr = new ListCategories();
+                    Fragment fr = new ProductInfoAdmin();
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-
+                    Bundle args = new Bundle();
+                    args.putString("PName1", titel);
+                    fr.setArguments(args);
                     ft.replace(R.id.content_frame, fr);
                     ft.commit();
                 }
@@ -239,10 +241,12 @@ public class EditProdAdmin extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    Fragment fr = new ListCategories();
+                    Fragment fr = new ProductInfoAdmin();
                     FragmentManager fm = getFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-
+                    Bundle args = new Bundle();
+                    args.putString("PName1", titel);
+                    fr.setArguments(args);
                     ft.replace(R.id.content_frame, fr);
                     ft.commit();
                 }

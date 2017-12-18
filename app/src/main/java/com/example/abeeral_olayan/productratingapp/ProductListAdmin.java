@@ -1,5 +1,6 @@
 package com.example.abeeral_olayan.productratingapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ public class ProductListAdmin extends Fragment{
     private DatabaseReference database;
     private ListView Lprod;
     private ArrayList<String> products;
+    ProgressDialog progressDialog;
     //private ArrayAdapter<String> arrayadap;
 
 
@@ -46,6 +48,10 @@ public class ProductListAdmin extends Fragment{
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle(titel);
+
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("products are Loading...");
+        progressDialog.show();
 
 
         //start
@@ -71,6 +77,7 @@ public class ProductListAdmin extends Fragment{
                         array = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, products);
 
                         Lprod.setAdapter(array);}
+                        progressDialog.dismiss();
                     }
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -79,7 +86,7 @@ public class ProductListAdmin extends Fragment{
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                progressDialog.dismiss();
             }
         };
 
@@ -90,7 +97,6 @@ public class ProductListAdmin extends Fragment{
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String val = (String) parent.getItemAtPosition(position);
-                    Toast.makeText(getActivity(), val, Toast.LENGTH_LONG).show();
 
                     Fragment fr = new ProductInfoAdmin();
                     FragmentManager fm = getFragmentManager();

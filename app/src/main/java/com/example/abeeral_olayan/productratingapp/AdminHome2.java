@@ -61,6 +61,8 @@ public class AdminHome2 extends AppCompatActivity
     ProgressDialog progressDia;
     List<ImageUpload_Category> listCat = new ArrayList<>();
 
+    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +121,7 @@ public class AdminHome2 extends AppCompatActivity
 
     }
 
-    public void notifyProductSuggested(){
+    public void notifyProductSuggested(int size){
         finish();
         startActivity(new Intent(getApplicationContext(), AdminHome2.class));
     }
@@ -199,7 +201,7 @@ public class AdminHome2 extends AppCompatActivity
         sug.setGravity(Gravity.CENTER_VERTICAL);
         sug.setTypeface(null, Typeface.BOLD);
         sug.setTextColor(getResources().getColor(R.color.colorAccent));
-        sug.setText(""+size);
+        sug.setText("**");
 
 
     }

@@ -35,6 +35,7 @@ public class ListCategories extends Fragment {
     private DatabaseReference database;
     private ListView Lcat;
     private ArrayList<String> category;
+    ProgressDialog progressDialog;
     //private ArrayAdapter<String> arrayadap;
 
 
@@ -49,6 +50,10 @@ public class ListCategories extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         getActivity().setTitle("Admin Home");
 
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Categories are Loading...");
+        progressDialog.show();
+
 
         //start
         category = new ArrayList<String>();
@@ -61,7 +66,7 @@ public class ListCategories extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getChildren() == null) {
-                    Toast.makeText(getActivity(), "No suggested product", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "No category", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getActivity(), AdminHome2.class));
                 }
                 try {
@@ -74,6 +79,7 @@ public class ListCategories extends Fragment {
                         array = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, category);
 
                         Lcat.setAdapter(array);
+                        progressDialog.dismiss();
                     }
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
@@ -82,7 +88,7 @@ public class ListCategories extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                progressDialog.dismiss();
             }
         };
 

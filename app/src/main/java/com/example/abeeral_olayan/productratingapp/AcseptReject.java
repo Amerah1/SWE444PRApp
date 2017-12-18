@@ -75,8 +75,9 @@ public class AcseptReject extends Fragment {
 
                                 String num= String.valueOf(dataSnapshot.getChildrenCount());
                             int size=Integer.parseInt(num.substring(num.length()-1));
+
                                 //AdminHome2 adminHome2 = new AdminHome2();
-                                //adminHome2.notifyProductSuggested();
+                                //adminHome2.initializeCountDrawer();
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {}
@@ -138,7 +139,7 @@ public class AcseptReject extends Fragment {
                                 String num= String.valueOf(dataSnapshot.getChildrenCount());
                                 int size=Integer.parseInt(num.substring(num.length()-1));
                                 //AdminHome2 adminHome2 = new AdminHome2();
-                                //adminHome2.notifyProductSuggested();
+                               // adminHome2.notifyProductSuggested(size);
 
                             }catch (Exception e){
                                 Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_LONG).show();}
