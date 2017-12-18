@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+        <style name="CustomList" parent="@android:style/Widget.ListView">
+            <item name="android:background">#2F3F66</item>
+            <item name="android:fastScrollEnabled">true</item>
+            <item name="android:textColor">#FF0000</item>
+            <item name="android:typeface">sans</item>
+            <item name="android:gravity">center_vertical</item>
+
+
+        </style>
+
+</resources>
