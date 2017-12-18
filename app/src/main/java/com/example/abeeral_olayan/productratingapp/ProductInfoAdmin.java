@@ -70,10 +70,9 @@ public class ProductInfoAdmin extends Fragment {
         edit=(Button) view.findViewById(R.id.editinf);
         delete=(Button) view.findViewById(R.id.deletP);
 
-        listComments= (ListView) view.findViewById(R.id.listCommentA);  //*********_______() make it as comment becous xml in my vervoin
+        listComments= (ListView) view.findViewById(R.id.listCommentA);
 
-        ListComment = new ArrayList<String>();// *********_______() make it as comment becous xml in my vervoin
-
+        ListComment = new ArrayList<String>();
         // Start Spinner code
 
         categories = new ArrayList<String>();
