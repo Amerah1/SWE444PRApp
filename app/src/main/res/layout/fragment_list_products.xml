@@ -10,9 +10,6 @@
         android:id="@+id/recyclerView2"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_alignParentStart="true" />
 
 </FrameLayout>

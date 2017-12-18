@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -104,7 +105,7 @@ public class ProductPage extends AppCompatActivity implements View.OnClickListen
                     imageURL = Rate.getImageURL();
                     numOfRating = Integer.parseInt(Rate.getNumOfRating());
                     rating = Double.parseDouble(Rate.getRating());
-                    ratings.setText(rating+"-"+numOfRating+"Vots");
+                    ratings.setText(new DecimalFormat("##.##").format(rating)+"-"+numOfRating+"Vots");
                 }
                 @Override
                 public void onCancelled(DatabaseError databaseError) {}

@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.abeeral_olayan.productratingapp.Suggest_products"
-    android:background="@drawable/background">
+    android:background="@drawable/ba">
 
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="360dp"
-        android:layout_height="93dp"
+        android:layout_width="400dp"
+        android:layout_height="120dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,25 +20,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/suggest" />
+        app:srcCompat="@drawable/spn"
+        android:layout_marginRight="8dp" />
 
 
     <Button
         android:id="@+id/CancleSB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/roundedbutton"
         android:text="Cancle"
+        android:textColor="#ffff"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintLeft_toRightOf="@+id/AddSPB"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.845" />
+        app:layout_constraintVertical_bias="0.879" />
 
     <TextView
         android:id="@+id/textView4"
@@ -55,7 +58,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.638" />
+        app:layout_constraintVertical_bias="0.681" />
 
     <TextView
         android:id="@+id/textView3"
@@ -72,7 +75,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.517" />
+        app:layout_constraintVertical_bias="0.564" />
 
     <TextView
         android:id="@+id/textView2"
@@ -89,7 +92,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintVertical_bias="0.444" />
 
     <TextView
         android:id="@+id/textView"
@@ -106,7 +109,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.299" />
+        app:layout_constraintVertical_bias="0.341" />
 
     <EditText
         android:id="@+id/PName"
@@ -116,33 +119,36 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="#ffcc00"
+        android:backgroundTint="#E0CC09"
         android:ems="10"
         android:hint="Enter Product Name"
         android:inputType="text"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.908"
+        app:layout_constraintHorizontal_bias="0.897"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.221" />
+        app:layout_constraintVertical_bias="0.204" />
 
     <Button
         android:id="@+id/AddSPB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="135dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/roundedbutton"
         android:text="Suggest"
+        android:textColor="#ffff"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.845" />
+        app:layout_constraintVertical_bias="0.879" />
 
     <EditText
         android:id="@+id/Pprice"
@@ -152,7 +158,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="#ffcc00"
+        android:backgroundTint="#E0CC09"
         android:ems="10"
         android:hint="Enter Product Price"
         android:inputType="number|numberDecimal"
@@ -171,14 +177,14 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="#ffcc00"
+        android:backgroundTint="#E0CC09"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.692"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintLeft_toRightOf="@+id/textView2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintVertical_bias="0.434" />
 
     <TextView
         android:id="@+id/autoCompleteTextView"
@@ -203,32 +209,32 @@
         android:layout_width="191dp"
         android:layout_height="63dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginLeft="53dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="#ffcc00"
+        android:backgroundTint="#E0CC09"
         android:ems="10"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.655" />
+        app:layout_constraintVertical_bias="0.673" />
 
     <Button
         android:id="@+id/Pimage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="135dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="256dp"
+        android:background="@drawable/roundedbutton"
         android:text="Upload image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:textColor="#ffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView7"
@@ -246,25 +252,22 @@
         app:layout_constraintHorizontal_bias="0.402"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.336" />
+        app:layout_constraintVertical_bias="0.398" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="388dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="124dp"
         android:text="*"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.402"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
@@ -282,88 +285,67 @@
         app:layout_constraintHorizontal_bias="0.034"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.649" />
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar3"
-        android:layout_width="400dp"
-        android:layout_height="75dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="436dp"
-        android:background=" 	#D3D3D3"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <Button
-        android:id="@+id/uprofile2"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="87dp"
-        android:layout_height="53dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="My profile"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.284"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/SuggestP2"
-        style="@android:style/Widget.Button.Small"
-        android:layout_width="109dp"
-        android:layout_height="72dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="436dp"
-        android:text="Suggest Product"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.644"
-        app:layout_constraintStart_toStartOf="@+id/toolbar3"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.692" />
 
     <Button
         android:id="@+id/logout2"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="81dp"
-        android:layout_height="43dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.972"
+        android:layout_width="91dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="472dp"
+        android:background="@drawable/lloogg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
+        tools:ignore="MissingConstraints"
+        android:layout_marginLeft="300dp" />
 
     <Button
         android:id="@+id/home2"
+        style="@android:style/Widget.Button.Small"
+        android:layout_width="91dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="292dp"
+        android:layout_marginRight="292dp"
+        android:layout_marginTop="472dp"
+        android:background="@drawable/hhoommee"
+        android:textColor="#998200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/SuggestP2"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="80dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="147dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Home"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="472dp"
+        android:background="@drawable/suactive"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.668"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982"
+        tools:ignore="MissingConstraints"
         android:layout_marginLeft="8dp" />
+
+    <Button
+        android:id="@+id/uprofile2"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="88dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="472dp"
+        android:background="@drawable/pprroo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.277"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
 
 </android.support.constraint.ConstraintLayout>

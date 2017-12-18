@@ -5,16 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.abeeral_olayan.productratingapp.MainActivity"
-    android:background="@drawable/background">
-
+    android:background="@drawable/ba">
 
 
     <pl.droidsonroids.gif.GifImageView
-        android:layout_width="400dp"
-        android:layout_height="145dp"
+        android:layout_width="1500dp"
+        android:layout_height="300dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="148dp"
         android:src="@drawable/logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -22,24 +21,25 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="361dp"
-        android:layout_height="145dp"
+        android:layout_width="330dp"
+        android:layout_height="250dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/pr" />
+        app:srcCompat="@drawable/kkk" />
 
     <Button
         android:id="@+id/signup_but"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="130dp"
-        android:layout_marginLeft="40dp"
+        android:layout_width="290dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="36dp"
+        android:layout_marginLeft="56dp"
+        android:background="@drawable/roundedbutton"
         android:text="Sign up"
-        android:textColor="#616161"
+        android:textColor="#ffff"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="normal"
@@ -48,13 +48,13 @@
 
     <Button
         android:id="@+id/signin_but"
-        android:layout_width="150dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="130dp"
+        android:layout_width="290dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="88dp"
         android:layout_marginRight="40dp"
-        android:onClick="Onclick2"
+        android:background="@drawable/roundedbutton"
         android:text="Sign in"
-        android:textColor="#616161"
+        android:textColor="#ffff"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="normal"
@@ -64,3 +64,4 @@
 
 
 </android.support.constraint.ConstraintLayout>
+
